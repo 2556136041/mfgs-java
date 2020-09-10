@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+
+*{margin:0;padding:0;}
+a,img{border:0;}
+a{text-decoration:none;}
+li{list-style-type:none;}
+#div_bot{clear:both;
+	     width:100%;
+         height:280px;
+		 /* background:#666; */
+		 background: rgb(40,167,67);
+		 margin-top:15px;
+	     font-size:16px;
+	     font-family: "微软雅黑";
+	    }
+#ulink{
+	   padding:10px 0px 10px 60px;
+	   }
+#ulink li{margin:5px;}
+.ulj a:hover{color:red;}
+#div_bot p,h4{text-align:center;
+              margin-top:10px;
+	         }
+span#span_hits{
+	display: inline-block;
+	float:right;
+}
+span#span_hits font{
+	border:1px solid lavender;
+	padding:2px 5px;
+	border-right:none;
+	font-family: 宋体;
+}

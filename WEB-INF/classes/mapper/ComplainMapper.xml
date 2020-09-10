@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mfgs.mapper.ComplainMapper" >
+  <resultMap id="BaseResultMap" type="com.mfgs.pojo.Complain" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="complainuser" property="complainuser" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="complaintime" property="complaintime" jdbcType="TIMESTAMP" />
+    <result column="cause" property="cause" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

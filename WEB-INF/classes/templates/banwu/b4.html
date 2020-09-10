@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版务</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwumain.css}"/>
+<style>
+
+</style>
+</head>
+
+<body>
+<div th:include="/common/top::header"></div>
+<div id="div_main">
+	<div id="div_left">
+         <h5>&nbsp;&nbsp;公社公约</h5>
+         <p><a href="/banwu.html">快乐原则<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a2.html">流程控制<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a3.html">达人炼成<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a4.html">纠纷解决<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;高屋建瓴</h5>
+         <p><a href="/b1.html">发展计划<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b2.html">协助管理<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b3.html">名人寄语<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b4.html" id="active" style="color:white;">媒体报道<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;常见问题</h5>
+         <p><a href="/c1.html">账户问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c2.html">安全问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c3.html">网络问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c4.html">其他相关<span style="padding-right: 30%;"></span>></a></p>
+	</div>
+	<div id="div_right">
+    <p><img width="40%" th:src="@{/static/images/banwu/logo1.jpg}" alt="" /></p>
+    <p>链接地址：<a href="http://sztqb.sznews.com/PC/layout/201805/10/node_A20.html#content_362694">个人私品分享平台“免费公社”网站上线</a></p>
+    <p><img th:src="@{/static/images/banwu/by1.jpg}" alt="" /></p>
+
+
+
+	</div>
+</div>
+<div id="div_hidden">
+</div>
+<div th:include="/common/banwu_bottom::banwubot"></div>
+</body>
+</html>

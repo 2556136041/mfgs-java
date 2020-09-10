@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfgs.mapper.IorderMapperCustom">
+  
+    <resultMap id="proMap" type="com.mfgs.pojo.Pro">
+	    <id column="proid" jdbcType="INTEGER" property="proid" />
+	    <result column="pos" jdbcType="INTEGER" property="pos" />
+	    <result column="protype" jdbcType="VARCHAR" property="protype" />
+	    <result column="userdig" jdbcType="INTEGER" property="userdig" />
+	    <result column="proname" jdbcType="VARCHAR" property="proname" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="hits" jdbcType="INTEGER" property="hits" />
+	    <result column="points" jdbcType="INTEGER" property="points" />
+	    <result column="username" jdbcType="VARCHAR" property="username" />
+	    <result column="city" jdbcType="VARCHAR" property="city" />
+	    <result column="tel" jdbcType="VARCHAR" property="tel" />
+	    <result column="useraddress" jdbcType="VARCHAR" property="useraddress" />
+	    <result column="pubaddress" jdbcType="VARCHAR" property="pubaddress" />
+	    <result column="degree" jdbcType="VARCHAR" property="degree" />
+	    <result column="number" jdbcType="INTEGER" property="number" />
+	    <result column="remainnum" jdbcType="INTEGER" property="remainnum" />
+	    <result column="proprice" jdbcType="INTEGER" property="proprice" />
+	    <result column="propic" jdbcType="VARCHAR" property="propic" />
+	    <result column="procon" jdbcType="VARCHAR" property="procon" />
+	    <result column="pubtime" jdbcType="TIMESTAMP" property="pubtime" />
+	    <result column="state" jdbcType="INTEGER" property="state" />
+	    <result column="setorder" jdbcType="INTEGER" property="setorder" />
+	    <result column="sendstate" jdbcType="INTEGER" property="sendstate" />
+	    <result column="proabout" jdbcType="LONGVARCHAR" property="proabout" />										
+    </resultMap>
+    
+    <resultMap id="iorderMap" type="com.mfgs.pojo.Iorder" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="proid" property="proid" jdbcType="INTEGER" />
+	    <result column="ordername" property="ordername" jdbcType="VARCHAR" />
+	    <result column="getstate" property="getstate" jdbcType="INTEGER" />
+	    <result column="orderaddress" property="orderaddress" jdbcType="VARCHAR" />
+	    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+	    <result column="orderlj" property="orderlj" jdbcType="VARCHAR" />
+	    <result column="ly" property="ly" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    
+     <resultMap id="iorderinfoMap" extends="iorderMap" type="com.mfgs.pojo.Iorder">
+         <association property="pro" resultMap="proMap"/>
+        <!-- <collection property="pro" resultMap="proMap" />  --> 
+     </resultMap>
+     
+     <update id="updateIorderState" parameterType="com.mfgs.pojo.Iorder">
+        update Iorder
+        <set>
+            <if test="_parameter!=null">getstate=1</if>
+        </set>
+
+        where id=#{id}
+    </update>
+  
+    <select id="selectprosenderinfoByUsername" parameterType="java.lang.String" resultMap="iorderinfoMap">
+         SELECT
+            a.*,b.*
+         FROM 
+            Pro a,Iorder b
+         WHERE 
+            a.proid=b.proid
+         AND
+            a.username=#{username};
+    </select>
+  
+  
+</mapper>

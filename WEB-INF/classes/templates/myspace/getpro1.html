@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/myspace.css}" />
+<link rel="stylesheet" th:href="@{/static/css/hoverbox.css}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+ 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/getnowtime.js}"></script>
+
+<style>
+p.p-2 a{
+    color:white;
+
+}
+p.p-2 a:hover{
+    color:red;
+
+}
+</style>
+<script>
+
+
+
+</script>
+</head>
+<body>
+<div class="bg-success" id="top">
+    <img id="logo" th:src="${'/static/images/common/newlogo2.png'}" alt="" style="width:100px;" />
+	<h4>【个人中心】</h4>
+    <div class="d-flex mb-3" style="margin-top:50px;">
+		<p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;" th:href="@{/index.html}">首页</a></p>
+		<p class="p-2 flex-fill" id="nowtime" style="color:white;text-align:center;"></p>
+	    <p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;"  th:href="@{/bglogout}">安全退出</a></p>
+    </div>	
+</div>
+
+<div id="ps_main">
+    <div id="ps_left" style="width:26%;">
+        <table id="tab1" align="center" width="90%" border="0" cellpadding="5" cellspacing="10">
+
+	          <tr>
+	            <td align="center" colspan="2">
+	               <th:block th:if="${photo !=null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${photo}" alt="" />
+	               </th:block>
+	                <th:block th:if="${photo == null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${'/static/images/common/newlogo2.png'}" alt="" />
+	               </th:block>
+	                <span class="text-center" style="display:block;" th:text="${loginuser}"></span>
+	            </td>
+	          </tr>	
+	          <tr>
+	              <th width="30%" align="left">性别:</th>    
+
+	              <td align="left" th:text="${sex}"></td>
+	          </tr>
+	          <tr>
+	              <th align="left">邮箱:</th>    
+	          
+	              <td align="left" th:text="${email}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">Q&nbsp;Q:</th>    
+	          
+	             <td align="left" th:text="${qq}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">电话:</th>    
+	         
+	             <td align="left" th:text="${tel}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">地址:</th>    
+	         
+	             <td align="left" th:text="${address}"></td>
+	          </tr>
+	
+	          <tr>
+	              <th align="left">标签:</th>    
+	         
+	              <td align="left" th:text="${usermark}"></td>
+	          </tr>
+	
+	         
+        </table>
+        
+        <table id='tab2' width="90%" cellspacing="10px" cellpadding="5px" border="0" align='center'>
+          <tr>
+            <th align="right" id="th_fx">分享：</th>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/write.html}" target="_blank">发布</a></td>
+          </tr>
+          <tr align="left">
+            <td></td>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/myupdate.html}">修改</a></td>
+          </tr>
+        </table>
+
+    </div>
+    <div id="ps_right" style="width:72%;margin-top:20px;">
+        <h2 style="text-align: center;font-size: 25px;width:100%;margin-bottom:15px;">获取物品(共<span class="text-danger" th:text="${all.size()}"></span>件)</h2>
+        <th:block th:if="${#lists.size(all) gt 0}">
+	        <th:block th:each="all:${all}">
+	        <table class="table" id='tab3' width="100%" align='left' cellspacing="10" cellpadding="10" border='0'>  
+	         <thead>
+		          <tr>
+		            <th width="10%">图片</th>
+		            <th width="10%">名称</th>
+		            <th width="8%">类别</th>
+		            <th width="8%">数量</th>
+		            <th width="10%">发布人</th>
+		            <th width="16%">描述</th>
+		            <th width="13%">发布时间</th>           
+		            <th width="13%">预订时间</th>   
+		            <th width="20%">接收状态</th>      
+		          </tr>		
+	         </thead>
+	         <tbody>
+		          <tr>
+		            <td align="center">
+		                 <ul class="hoverbox">
+			                  <li>
+			                  <a href="#"><img height="40px" th:src="@{'/static/images/pros/'+${all.pro.propic}}" alt="description"><img th:src="@{'/static/images/pros/'+${all.pro.propic}}" alt="" class="preview"></a>
+			                  </li>
+		                 </ul>
+		            </td>
+		            <td align="left" th:text="${all.pro.proname}"></td>
+		            <th:block th:switch="${all.pro.protype}">
+		                <td align="left" th:case="'jj'">家具</td>
+		                <td align="left" th:case="'jd'">家电</td>
+		                <td align="left" th:case="'sj'">书刊</td>
+		                <td align="left" th:case="'sp'">私品</td>
+		                <td align="left" th:case="'cw'">宠物</td>
+		                <td align="left" th:case="'yw'">衣物</td>
+		            </th:block>
+		            <td align="left" th:text="${all.pro.number}"></td>
+		            <td align="left" th:text="${all.pro.username}"></td>
+		            <td align="justify" th:text="${all.pro.proabout}"></td>
+		            <td align="left" th:text="${#dates.format(all.pro.pubtime, 'yyyy-MM-dd HH:mm')}"></td>
+		            <td align="left" th:text="${#dates.format(all.ordertime, 'yyyy-MM-dd HH:mm')}"></td>
+		            <td align="center"  th:if="${all.getstate == 1}"><a style="javascript:void(0);background:red;color:white;border-radius: 10px;padding:5px 20px;">已收到</a></td>
+		            <td align="center"  th:if="${all.getstate == 0}"><a th:href="@{'/getprostate/id/'+${all.id}}" style="background:green;color:white;border-radius: 10px;padding:5px 20px;">未收到</a></td>
+		          </tr>          
+	          </tbody>
+	         
+	         
+	        </table>
+	        </th:block>
+        </th:block>
+        
+        <th:block th:if="${#lists.size(all) eq 0}">
+           <p>你还没有获取任何物品！</p>
+        </th:block>
+        
+        
+        <p style="margin-top:80px;width:100%;text-align:right;">
+           <a class="btn btn-warning border-0" style="margin-right:80px;" th:href="@{/myspace.html/page/1}">分享物品清单</a>
+        </p>
+
+    </div>
+</div>
+
+<div style="clear:both;margin-bottom:20px;"></div>
+
+<div th:include="/common/bottom::footer"></div>
+
+</body>
+</html>

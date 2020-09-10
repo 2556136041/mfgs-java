@@ -1,0 +1,229 @@
+<!DOCTYPE html> 
+ <html lang="en"> 
+ <head> 
+ <meta charset="UTF-8"> 
+ <title>用户注册</title> 
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+ 
+<script type="text/javascript" th:src="@{/static/js/checkform.js}"> </script> 
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.2.1.min.js}"></script>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+ 
+<style type="text/css"> 
+
+a
+{
+  text-decoration: none;
+  color:black;
+}
+a:hover
+{
+  color:red;
+}
+div#div_main{
+		width:70%;
+	    margin:50px auto;
+	/*	border:1px solid rgba(220,220,220,0.4);
+        border-radius:15px;
+        background: white;
+       box-shadow: 3px 3px 5px rgba(220,220,220,0.8); 
+        opacity:0.9;
+    */    
+	}
+table{
+  width:700px;
+  margin:5px auto;
+
+}
+
+table tr td{
+  padding:10px 0px;
+}
+
+.input1
+{
+  width: 400px;
+  height: 50px;
+  font-size: 18px;
+  padding-left:6px;
+}
+.input2
+{
+  padding:2px 15px;
+  border-radius: 5px;
+  font-size:18px;
+  font-family: "黑体";
+
+}
+.input2:hover
+{
+   background: red;
+}
+ .td_first
+ {color:black;
+  font-family: "黑体";
+  width: 100px;
+  font-size: 17px;
+
+ }
+ textarea
+ {
+  font-size: 17px;
+  width:400px;
+  padding-top:6px;
+  padding-left:6px;
+  overflow:hidden;
+  border-radius:5px;
+  display:inline-block;
+  border:1px solid #DCDCDC;
+ }
+
+ div.result{
+  font:16px 'Microsoft Yahei';
+ }
+input[type=checkbox]{
+   zoom:150%;
+   vertical-align: middle;
+   margin:0px 6px 0px 4px;
+}
+
+
+
+ </style> 
+ </head> 
+ <body> 
+<div th:include="/common/top::header"></div>
+<div id="div_main">
+<script>
+//打网页获得焦点
+$(document).ready(function(){
+    $('#username').focus();
+    checkConfirm(); 
+});
+  
+/*<![CDATA[*/
+//验证用户名是否存在   
+function checkConfirm(){   
+    
+  	// $("#username").blur(function(){  
+  	//       var gradename  = $(this).val();
+   //          if(gradename==''){ 
+  	// 		   $("#username").focus();
+  	// 		   alert("不能为空！");			   
+  		  
+   //          }
+  	// });
+    $("#username").change(function(){    
+          var gradename  = $(this).val();	
+          //alert(gradename);
+          var changeUrl = "/checkname";      
+          $.post(changeUrl, {"gradename":gradename},function(str){   
+              if(str == '1'){   
+                  alert("您输入的用户名存在！请重新输入！");
+                  $("#username").val('');
+			            $("#username").focus();
+              }else{
+		          
+		          }
+          })   
+      return false;   
+    })   
+}   
+/*]]>*/  
+</script>
+<form name="form" th:action="@{/userreg}" method="post" th:method="post" onsubmit="return checkForm()"> 
+ <table class="form-group" cellpadding="0" border="0" cellspacing="10" align="center" > 
+ <tr style="text-align:left;"> 
+     <th colspan="3">&nbsp;&nbsp;如你已经是本站的用户，请点击<a href="/index.html">这里</a>登陆</th> 
+ </tr> 
+ <tr> 
+     <th colspan="3"><h2 class="text-center" style="padding-top:16px;">会员注册</h2></th> 
+ </tr> 
+ <tr> 
+     <td class="td_first"></td>
+     <td colspan="2"><span style="color:red;" th:if="${regresult!=null}" th:text="${regresult}"></span></td> 
+ </tr> 
+ <tr> 
+    <td class="td_first" align="right" >用户名：</td> 
+    <td><input class="input1 form-control" type="text" name="loginuser" id="username" onkeydown="switchKey(form.pwd)" onfocus="focus_username()" onblur="blur_username()" ></td> 
+    <td><div class="result" id="result_username"></div></td> 
+ </tr> 
+ <tr> 
+    <td class="td_first" align="right">密码：</td> 
+    <td><input class="input1 form-control" type="password" name="pwd" onkeydown="switchKey(form.repwd)" id="pwd" onfocus="focus_pwd()" onblur="blur_pwd()" /></td> 
+    <td><div class="result" id="result_pwd"></div></td> 
+ </tr> 
+ <tr> 
+    <td class="td_first" align="right">确认密码：</td> 
+    <td><input class="input1 form-control" type="password" onkeydown="switchKey(form.sex)" name="repwd" id="repwd" onfocus="focus_repwd()" onblur="blur_repwd()"/></td> 
+    <td><div class="result" id="result_repwd"></div></td> 
+</tr> 
+<tr> 
+    <td class="td_first" align="right" >性别：</td> 
+    <td class="td_first" align="left" colspan="2">
+              男<input type="radio" checked name="sex" value="男" />
+              女<input type="radio" name="sex" value="女" />
+    </td> 
+</tr> 
+<tr> 
+    <td class="td_first" align="right">邮箱：</td> 
+    <td><input class="input1 form-control" type="text" name="email" onkeydown="switchKey(form.Mobile)" id="email" onfocus="focus_email()" onblur="blur_email()"/></td> 
+    <td><div class="result" id="result_email"></div></td> 
+ </tr> 
+ <tr> 
+    <td class="td_first" align="right">手机：</td> 
+    <td><input class="input1 form-control" type="text" name="tel" onkeydown="switchKey(form.qq)" id="Mobile" onfocus="focus_Mobile()" onblur="blur_Mobile()"/></td> 
+    <td><div class="result" id="result_Mobile"></div></td> 
+ </tr> 
+ <tr> 
+    <td class="td_first" align="right">QQ：</td> 
+    <td><input class="input1 form-control" type="text" name="qq" id="qq" onkeydown="switchKey(form.address)" onfocus="focus_qq()" onblur="blur_qq()"/></td> 
+    <td><div class="result" id="result_qq"></div></td> 
+ </tr> 
+
+<tr>
+    <td class="td_first" align="right">地址：</td> 
+    <td><input class="input1 form-control" type="text" name="address" onkeydown="switchKey(form.usermark)" id="address" onfocus="focus_address()" onblur="blur_address()"/></td> 
+    <td><div class="result" id="result_address"></div></td> 
+</tr>
+<tr>
+    <td class="td_first" align="right" valign="top">标签：</td>
+    <td>
+    <textarea name="usermark" onkeydown="switchKey(form.loginuser)" id="usermark" cols="40" rows="10" onfocus="focus_usermark()" onblur="blur_usermark()"></textarea>
+    <p style="font:16px 'Microsoft Yahei';">(能代表你个性的一句话)</p>
+    </td>
+    <td valign="top"><div class="result" style="margin-top:0px;" id="result_usermark"></div></td> 
+</tr>
+
+<tr> 
+    <td align="center" colspan="3">
+    <input id="tjbut" class="btn btn-success" type="submit" value="提交" /> 
+    <input class="btn btn-success" type="reset" value="重置" /></td> 
+ </tr> 
+ </table> 
+ </form>  
+<script>
+
+function switchKey(obj){
+     if(event.keyCode==40){
+             obj.focus();
+     }
+
+}
+
+$("body").keydown(function() {
+    if (event.keyCode == "13") {//keyCode=13是回车键
+        $('#tjbut').click().css('background-color','red').css('color','white').text('提交...');
+    }
+});  
+
+
+</script>
+ </div>
+<div th:include="/common/bottom::footer"></div>
+ </body> 
+ </html>

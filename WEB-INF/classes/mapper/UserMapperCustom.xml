@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mfgs.mapper.UserMapperCustom" >
+ <!-- <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+ 
+  -->  
+    
+   <!-- 单表自定义方法 -->
+   <!-- checkloginuser -->
+	<select id="queryByNameAndPwd" resultType="com.mfgs.pojo.User" 
+										 parameterType="java.lang.String" >
+	    select * from User where loginuser = #{loginuser} and pwd = #{pwd}
+	</select>
+	
+	 <!-- queryUserByName -->
+	<select id="queryUserByLoginuser" resultType="com.mfgs.pojo.User" 
+										 parameterType="java.lang.String" >
+	    select * from User where loginuser = #{loginuser}
+	</select>
+	
+	<!-- queryUserByPhone -->
+	<select id="queryUserByPhone" resultType="com.mfgs.pojo.User" 
+										 parameterType="java.lang.String" >
+	    select * from User where tel = #{tel}
+	</select>
+	
+	
+	<update id="updateUserPwd" parameterType="com.mfgs.pojo.User">
+        update User
+        <set>
+            <if test="_parameter!=null">pwd=#{pwd}</if>
+        </set>
+
+        where id=#{id}
+    </update>
+    
+    <update id="updateUserLogintimes" parameterType="com.mfgs.pojo.User">
+        update User
+        <set>
+            <if test="_parameter!=null">logintimes=#{logintimes}</if>
+        </set>
+        where loginuser=#{loginuser}
+    </update>
+    
+    <update id="updateUserLastLogintime" parameterType="com.mfgs.pojo.User">
+        update User
+        <set>
+            <if test="_parameter!=null">lastlogintime=#{lastlogintime}</if>
+        </set>
+        where loginuser=#{loginuser}
+    </update>
+    
+
+    
+</mapper>
+
+

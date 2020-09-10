@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发布分享物品</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/myspace.css}" />
+<link rel="stylesheet" th:href="@{/static/css/hoverbox.css}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+ 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style type="text/css">
+
+
+
+</style>
+<script type="text/javascript">
+	function check(form){
+	       if(form.proname.value==""){
+               alert("产品名称不能为空！");
+               form.proname.focus();
+               return(false);
+           }
+		   if(form.degree.value==""){
+               alert("使用时间不能为空！");
+               form.degree.focus();
+               return(false);
+           }
+		   if(form.number.value==""){
+               alert("数量不能为空！");
+               form.number.focus();
+               return(false);
+           }
+		   if(form.tel.value==""){
+               alert("电话不能为空！");
+               form.tel.focus();
+               return(false);
+           }
+		   if(form.pubaddress.value==""){
+               alert("地址不能为空！");
+               form.pubaddress.focus();
+               return(false);
+           }
+           if(form.proprice.value==""){
+               alert("产品费用不能为空！");
+               form.proprice.focus();
+               return(false);
+           }
+           if(form.city.value==""){
+               alert("城市不能为空！");
+               form.city.focus();
+               return(false);
+           }
+           if(form.proabout.value==""){
+               alert("产品描述不能为空！");
+               form.pro_about.focus();
+               return(false);
+           }
+           if(form.procon.value==""){
+               alert("条件不能为空！");
+               form.procon.focus();
+               return(false);
+           }
+           if(form.photo.value==""){
+               alert("忘了提交图片！");
+               form.photo.focus();
+               return(false);
+           }
+           return(true);
+	}
+	function setStyle(x){
+           document.getElementById(x).style.background="rgba(255,255,204,0.8)";
+     }
+     function loseStyle(x){
+     	   document.getElementById(x).style.background="white";
+     }
+
+
+//上传图片
+window.onload = function(){
+	var oBtn = document.getElementById('btn');
+	var oMyFile = document.getElementById('myFile');
+	var proBox = document.getElementById('probox');
+	var proBar = document.getElementById('probar');
+	var tdprogress = document.getElementById('tdprogress');
+	var proRel = document.getElementById('prorel');
+	$("#btn").attr('disabled',false);
+    oBtn.onclick = function() {
+	    //利用ajax发送必须要有一个ajax对象
+	    var xhr = new XMLHttpRequest();
+
+	    //监听上传事件
+	    xhr.onload = function(){
+	    	var imagename,imagepath;
+	        //alert(1);
+	        //alert(this.responseText);//后端返回的数据
+
+	        //var d = JSON.parse(this.responseText);
+	        //alert(d.msg + ' : ' + d.url); //显示上传成功 并且显示文件路径
+	        //alert('OK 上传完成');
+	        imagename=this.responseText;
+	        imagepath='E:/mfgs/pros/'+imagename;
+	        document.getElementById('imgshow').style.display='block';
+	        var imgsrc="/static/images/pros/"+imagename;
+	        document.getElementById('imgshow').src=imgsrc;
+	        document.getElementById('imgname').innerHTML="";
+	        //alert(imgsrc);
+	        //document.getElementById('imgname').style.color='red';
+	        //document.getElementById('imgname').innerHTML="上传成功，图片名称："+imagename;
+	        document.getElementById('pic').value=imagename;
+	        $("#btn").attr('disabled',true);
+	        
+	    }
+
+	    //如果要实现上传进度条，则要使用上传进度对象
+	    var oUpload = xhr.upload;
+	    // alert(oUpload);//上传进度的事件对象
+	    // 上传过程中是连续被触发的 监控上传进度
+	    oUpload.onprogress = function(ev){
+	        //ev.total(要发送的总量)、ev.loaded(待发送的总量)
+	        console.log(ev.total + ' : ' + ev.loaded);
+	        
+	        proBox.style.display="block";
+	        var iScale = ev.loaded / ev.total;
+	        proBar.style.width = 760 * iScale + 'px';//显示上传进度
+	        proRel.innerHTML = iScale * 100 + '%'; //显示上传百分百
+	        proRel.style.color="white";
+	        proRel.style.paddingRight="5px";
+	    }
+
+	    xhr.open('post','/fileUploadPro',true); //open打开的方式不能使用get,上传文件的地址,使用异步上传
+	    //在使用post发送的时候必须要带一些请求头信息
+	    xhr.setRequestHeader('X-Request-With', 'XMLHttpRequest');
+
+	    //send要发送数据 
+	    //将要上传的数据转换成二进制数据
+	    //那么必须知道后端接收当前文件的名称是什么 然后后面带上当前文件的数据
+
+	    var oFormData = new FormData(); //通过FormData来构建提交数据
+	    oFormData.append('file',oMyFile.files[0]);
+
+	    xhr.send(oFormData);
+    }
+}
+</script>
+
+</head>
+
+<body>
+<div class="bg-success" id="top">
+    <img id="logo" th:src="${'/static/images/common/newlogo2.png'}" alt="" style="width:100px;" />
+	<h4>【个人中心】</h4>
+    <div class="d-flex mb-3" style="margin-top:50px;">
+		<p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;" th:href="@{/index.html}">首页</a></p>
+		<p class="p-2 flex-fill" id="nowtime" style="color:white;text-align:center;"></p>
+	    <p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;"  th:href="@{/bglogout}">安全退出</a></p>
+    </div>	
+</div>
+
+<div id="ps_main">
+    <div id="ps_left" style="width:26%;">
+         <table id="tab1" align="center" width="90%" border="0" cellpadding="5" cellspacing="10">
+
+	          <tr>
+	            <td align="center" colspan="2">
+	               <th:block th:if="${photo !=null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${photo}" alt="" />
+	               </th:block>
+	                <th:block th:if="${photo == null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${'/static/images/common/newlogo2.png'}" alt="" />
+	               </th:block>
+	                <span class="text-center" style="display:block;" th:text="${loginuser}"></span>
+	            </td>
+	          </tr>	
+	          <tr>
+	              <th width="30%" align="left">性别:</th>    
+
+	              <td align="left" th:text="${sex}"></td>
+	          </tr>
+	          <tr>
+	              <th align="left">邮箱:</th>    
+	          
+	              <td align="left" th:text="${email}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">Q&nbsp;Q:</th>    
+	          
+	             <td align="left" th:text="${qq}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">电话:</th>    
+	         
+	             <td align="left" th:text="${tel}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">地址:</th>    
+	         
+	             <td align="left" th:text="${address}"></td>
+	          </tr>
+	
+	          <tr>
+	              <th align="left">标签:</th>    
+	         
+	              <td align="left" th:text="${usermark}"></td>
+	          </tr>
+	
+	         
+        </table>
+        
+        <table id='tab2' width="90%" cellspacing="10px" cellpadding="5px" border="0" align='center'>
+          <tr>
+            <th align="right" id="th_fx">分享：</th>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/write.html}" target="_blank">发布</a></td>
+          </tr>
+          <tr align="left">
+            <td></td>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/myupdate.html}">修改</a></td>
+          </tr>
+        </table>
+
+    </div><!-- left -->
+    <div id="ps_right" style="width:72%;margin-top:20px;">
+      <div id="div_pub">
+			<div id="div_upload">
+			 <table width="100%" border="0" cellspacing="0" cellpadding="10" style="margin:20px auto;">
+		         <tr>
+		            <td colspan="2" id="tdprogress">
+		            	<div id="probox" class="progress">
+					       <p class="progress-bar progress-bar-striped bg-success" id="probar" style="width:0%">
+					           <span id="prorel">0%</span>
+					       </p>
+					    </div>
+		            </td>
+		         <tr>
+		            <td align="center" width="600px"><input type="file" id="myFile" /><font style="color:red;">（图片规格：323×250/646×500）</font>
+		            </td>
+		            <td align="center">
+		               <input id="btn" type="button" class="btn btn-success" value="上传" />
+		        	
+		            </td>
+		        <tr>
+		           <td colspan="2">          
+		           <p id="p_img" style="margin:20px 40px;"><img id="imgshow" src="" width="350"></p>
+		           <p id="imgname" class="text-center">还没有上传图片</p>
+		          </td>
+		        </tr>
+		
+		     </table> 
+		
+			</div><!-- uploadimg -->
+		   <div id="div_content">
+				<form name="form2" method="post" th:method="post" th:action="@{/savepro}" onsubmit="return check(this)">		
+				<table id="tab2" width="100%" class="form-group" border="0" cellpadding="10" cellspacing="10">
+				        <tr>
+							<th class="th_ts">类别：</th>
+							<td>
+							<select class="form-control" name="protype" id="">
+			                    <option value="sp">私品</option>
+								<option value="jj">家具</option>
+								<option value="jd">家电</option>
+								<option value="yw">衣物</option>					
+								<option value="sj">书刊</option>
+								<option value="cw">宠物</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<th class="th_ts">名称：</th>
+							<td><input class="proInp input2 form-control" type="text" name="proname" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="proname" /></td>
+						</tr>
+						
+			            <tr>
+							<th class="th_ts" valign="top">时长：</th>
+							<td><input class="proInp input2 form-control" type="text" name="degree" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="degree" /></td>
+						</tr>
+			            <tr>
+							<th class="th_ts" valign="top">数量：</th>
+							<td><input class="proInp input2 form-control" type="text" name="number" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="number" /><p>(使用及豢养时间)</p></td>
+						</tr>
+						 <tr>
+							<th class="th_ts">身份：</th>
+							<td>
+							<select class="form-control" name="userdig" id="">
+			                    <option value="0">个人</option>
+								<option value="1">公司</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<th class="th_ts">费用：</th>
+							<td><input class="proInp input2 form-control" type="text" name="proprice" value="0"
+							onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="proprice" disabled /></td>
+						</tr>
+						<tr>
+							<th class="th_ts">电话：</th>
+							<td><input class="proInp input2 form-control" type="text" name="tel" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="tel" /></td>
+						</tr>
+						<tr>
+							<th class="th_ts">城市：</th>
+							<td><input class="proInp input2 form-control" type="text" name="city" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="city" /></td>
+						</tr>
+						<tr>
+							<th class="th_ts">地址：</th>
+							<td><input class="proInp input2 form-control" type="text" name="pubaddress"
+							onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="pubaddress" /></td>
+						</tr>
+						
+						<tr>
+							<th class="th_ts" valign="top">描述：</th>
+							<td><textarea class="proInp proarea form-control" rows="8" name="proabout" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="proabout"></textarea><p>(大小尺寸、颜色等，为了方便他人选用，尽量详细一点。)</p>
+							</td>
+						</tr>
+						
+						<tr>
+							<th class="th_ts" valign="top">条件：</th>
+							<td><textarea class="proInp proarea form-control" rows="5" name="procon" onfocus="setStyle(this.id)" onblur="loseStyle(this.id)" id="procon">先约先得，物流费自行承担。</textarea></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+							    <input id="pic" type="hidden" name="photo" value="" />
+						    	<input class="btn btn-success" type="submit" value="提交" />
+			                    <input class="btn btn-success" type="reset" value="重置" />
+						    </td>
+						</tr>
+						
+					</table>
+				</form>
+				<script>
+				     $("body").keydown(function() {
+				          if (event.keyCode == "13") {//keyCode=13是回车键
+				              $('#tjbut').click();
+				          }
+				    });  
+				
+				</script>
+			 </div><!-- content -->
+		 </div><!-- div_main -->
+     </div><!-- right -->
+     
+</div><!-- ps_main -->
+
+<div style="clear:both;margin-bottom:20px;"></div>
+
+<div th:include="/common/bottom::footer"></div>
+
+</body>
+</html>

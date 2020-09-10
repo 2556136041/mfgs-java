@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版务</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwumain.css}"/>
+<style>
+
+</style>
+</head>
+
+<body>
+<div th:include="/common/top::header"></div>
+<div id="div_main">
+	<div id="div_left">
+         <h5>&nbsp;&nbsp;公社公约</h5>
+         <p><a href="/banwu.html">快乐原则<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a2.html">流程控制<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a3.html">达人炼成<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a4.html">纠纷解决<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;高屋建瓴</h5>
+         <p><a href="/b1.html">发展计划<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b2.html">协助管理<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b3.html">名人寄语<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b4.html">媒体报道<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;常见问题</h5>
+         <p><a href="/c1.html" id="active" style="color:white;">账户问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c2.html">安全问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c3.html">网络问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c4.html">其他相关<span style="padding-right: 30%;"></span>></a></p>
+	</div>
+	<div id="div_right">
+    <p>1、为保护用户隐私，建议用昵称注册。</p>
+    <p>2、支持手机修改密码。</p>
+    <p>3、为了保证沟通及时畅通,请使用真实手机号。</p>
+    <p>4、订单业务一经产生,立即会有短信消息通知馈赠者。</p>
+    <p>5、馈赠者在物品发出前可以临时改变主意,但要做好解释工作。</p>
+    <p>6、受赠者在收到物品后，应反馈收到情况，系统定期对已经成交的产品进行清理。</p>
+
+	</div>
+</div>
+<div id="div_hidden">
+</div>
+<div th:include="/common/banwu_bottom::banwubot"></div>
+</body>
+</html>

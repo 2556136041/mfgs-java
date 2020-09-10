@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>家具</title>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+<link rel="stylesheet" type="text/css"  th:href="@{/static/css/pro_center.css}" />
+
+<style type="text/css">
+div#div_lead a,div#pagenav a{
+      color:black;
+      text-decoration:none;
+}
+div#div_lead a:hover,div#pagenav a:hover{
+      color:red;
+}
+.loading{
+		width: 100%;
+		height: 100%;
+		position:fixed;
+		top:0;
+		left: 0;
+		z-index: 100;
+		background: white;
+       }
+.pic{
+	    width:80px;
+		height:80px;
+		background-image:url('/static/images/common/load.gif');
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin:auto;
+     }
+
+/*回到顶部*/
+#btn{
+	display: none;
+	width: 80px;
+	height: 80px;
+	position: fixed;
+	left:50%;
+	margin-left: 520px;
+	bottom:300px;
+	background:url('/static/images/common/turntop.png') no-repeat left top;
+}
+#btn:hover{
+	background:url('/static/images/common/turntop.png') no-repeat left -80px;
+}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+document.onreadystatechange=function(){
+	      var loading='<div class="loading"><div class="pic"></div></div>';
+	      $('body').append(loading);
+          if(document.readyState=='complete'){
+          	  $('.loading').fadeOut();
+          };
+}
+
+//提示扫描
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+//回到顶部
+//document.onreadystatechange等同于window.onload
+	window.onload=function(){
+		var obtn=document.getElementById('btn');
+		var clientHeight=document.documentElement.clientHeight;
+		var timer=null;
+		var isTop=true;
+		window.onscroll=function(){
+			var ostop=document.documentElement.scrollTop || document.body.scrollTop;
+			if(ostop>=clientHeight){
+                obtn.style.display='block';
+			}else{
+				obtn.style.display='none';
+			}
+			if(!isTop){
+				clearInterval(timer);
+			}
+			isTop=false;
+		}
+		    obtn.onclick=function(){
+		    	// alert(clientHeight);
+		    	timer=setInterval(function(){
+                    var ostop=document.documentElement.scrollTop || document.body.scrollTop;
+                    var ispeed=Math.floor(-ostop / 10);
+		    	    document.documentElement.scrollTop = document.body.scrollTop =ostop+ispeed;
+		    	    isTop=true;
+		    	    if(ostop==0){
+		    	    	clearInterval(timer);
+		    	    }
+		    	},30);
+		    	
+		    }
+	}
+	
+	/**************************分页***********************************/
+	var currentPage =[[${page}]];
+	var totalPage = [[${totalPage}]]
+	
+	//第一页
+	function firstPage(){
+		if(currentPage == 1){
+			alert("已经是第一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("first");
+		    formElement.href = "/jj.html/page/1";
+			return true;
+		}
+	}
+	
+	//下一页
+	function nextPage(){
+		if(currentPage == totalPage){
+			alert("已经是最后一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("next");
+		    var nextpage=currentPage+1;
+		    formElement.href = "/jj.html/page/"+nextpage;
+			return true;
+		}
+	}
+	
+	//上一页
+	function previousPage(){
+		if(currentPage == 1){
+			alert("已经是第一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("pre");
+		    var prepage=currentPage-1;
+		    formElement.href = "/jj.html/page/"+prepage;
+			return true;
+		}
+	}
+	
+	//尾页
+	function lastPage(){
+		if(currentPage == totalPage){
+			alert("已经是最后一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("last");
+		    formElement.href = "/jjs.html/page/"+totalPage;
+			return true;
+		}
+	}
+
+
+</script>
+</head>
+
+<body>
+<div th:include="/common/top::header"></div>
+
+<div id="div_lead" style="background: rgb(204,255,204);">
+&nbsp;<img height="25px" align="top" th:src="@{/static/images/common/currentpos.png}">&nbsp;当前位置：<a th:href="@{/index.html}">首页</a> >> 家具
+</div>
+<div id="div_show">
+<th:block th:if="${#lists.size(all) gt 0}">
+    <th:block th:if="@{all != null}" th:each="all:${all}">
+		<p class='p_img'>
+			<a th:href="@{'/proshow.html/id/'+${all.proid}}"><img width='100%' height='250px' th:src="@{'/static/images/pros/'+${all.propic}}" alt='' /></a>
+		    <img th:src="@{/static/images/common/look.png}" width="26px" style="position:absolute;left:10px;top:15px;" />
+		    <span th:text="${all.hits}" style="text-shadow:1px 1px 1px white;position:absolute;left:41px;top:12px;"></span>
+			<span id="span_about" style="font-size:18px;display:inline-block;width:60%;float:left;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;" class="text-left" th:text="${all.proname}"></span>
+			<span style="display:inline-block;float:right;" >还剩<b class="text-warning" th:text="${all.number-(all.number-all.remainnum)}"></b>个/件</span>
+         </p>
+
+    </th:block>
+</th:block>
+
+<th:block th:if="${#lists.size(all) eq 0}">
+还没有产品
+</th:block>
+
+   
+<th:block th:if="${totalRecord%3==1}">
+        <p class="p_img float-left" style="margin-left:25px;"><a href="#" data-toggle="tooltip" data-placement="top" title="拿起手机，扫描进入小程序发布物品"><img th:src="@{/static/images/common/22.jpg}" width='250px' height="250px"></a><span id='span_about'>扫描进入小程序</span></p>
+</th:block>
+
+<th:block th:if="${totalRecord%3==2}">
+        <p class='p_img'><a href="#" data-toggle="tooltip" data-placement="top" title="拿起手机，扫描进入小程序发布物品"><img th:src="@{/static/images/common/22.jpg}" width='250px' height="250px"></a><span id='span_about'>扫描进入小程序</span></p>
+</th:block>
+<th:block th:if="${totalRecord%3==0}">
+        <p class='p_img'><a href="#" data-toggle="tooltip" data-placement="top" title="拿起手机，扫描进入小程序发布物品"><img th:src="@{/static/images/common/22.jpg}" width='250px' height="250px"></a><span id='span_about'>扫描进入小程序</span></p>
+</th:block>
+
+
+</div>
+
+<div id="pagenav" style="clear:both;text-align:center;height:auto;width:1000px;margin:15px auto;">
+    &nbsp;&nbsp; 共<span th:text="${totalRecord}"></span>条记录,每页<span th:text="${pagesize}"></span>条,共<span th:text="${totalPage}"></span>页,&nbsp;&nbsp;当前第<span th:text="${page}"></span>页&nbsp;&nbsp;
+    <a id="first" href="javascript:void(0);" onclick="firstPage();">首页</a>&nbsp;&nbsp; 
+	<a id="pre" href="javascript:void(0);" onclick="previousPage();">上一页</a>&nbsp;&nbsp;
+	<a id="next" href="javascript:void(0);" onclick="nextPage();">下一页</a>&nbsp;&nbsp;
+	<a id="last" href="javascript:void(0);" onblur="lastPage();">尾页</a>		
+
+</div>
+
+
+
+<div th:include="/common/bottom::footer"></div>
+<a href="javascript:void(0);" id="btn" title="回到顶部"></a>
+
+<script>
+
+//设置向baiduspider自动推送
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+
+</script>
+</body>
+</html>

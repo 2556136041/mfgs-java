@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>版务</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<link rel="stylesheet" th:href="@{/static/css/banwumain.css}"/>
+<style>
+
+</style>
+</head>
+
+<body>
+<div th:include="/common/top::header"></div>
+<div id="div_main">
+	<div id="div_left">
+         <h5>&nbsp;&nbsp;公社公约</h5>
+         <p><a href="/banwu.html" >快乐原则<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a2.html" id="active" style="color:white;">流程控制<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a3.html">达人炼成<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/a4.html">纠纷解决<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;高屋建瓴</h5>
+         <p><a href="/b1.html">发展计划<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b2.html">协助管理<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b3.html">名人寄语<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/b4.html">媒体报道<span style="padding-right: 30%;"></span>></a></p>
+         <span class="span_fg"></span>
+         <h5>&nbsp;&nbsp;常见问题</h5>
+         <p><a href="/c1.html">账户问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c2.html">安全问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c3.html">网络问题<span style="padding-right: 30%;"></span>></a></p>
+         <p><a href="/c4.html">其他相关<span style="padding-right: 30%;"></span>></a></p>
+	</div>
+	<div id="div_right">
+    <h3>示意图</h3>
+    <p><img width="100%" src="__img__/flow/00.jpg" alt="" /></p>
+    <h3>注意事项</h3>
+    <p>1、有人认领时会有短信提示，请及时登陆网站或打电话联系对方。</p>
+    <p>2、双方一经确认，系统自动关闭通道。</p>
+    <p>3、对于确认后未完成的转交物品，视情况重新放出或删除。</p>
+	</div>
+</div>
+<div id="div_hidden">
+</div>
+<div th:include="/common/banwu_bottom::banwubot"></div>
+</body>
+</html>

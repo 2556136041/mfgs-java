@@ -1,0 +1,84 @@
+@charset="UTF-8";
+
+
+
+/*position*/
+
+#div_lead{width:1000px;
+          height:50px;
+		  margin:20px auto;	
+		  background: rgb(204,255,204);
+		  border-radius: 10px;
+		  line-height:40px;
+		  font:20px "微软雅黑";	
+		  padding:10px 0px;   
+		 }
+#div_lead a{color:#000;}
+#div_lead a:hover{color:#FFF;}
+
+/* 分页分割线 */
+#p_line{font:18px "微软雅黑";
+		text-align:right;
+		height:60px;
+		line-height:60px;
+		margin-top:0px;
+	    }
+
+/*图片显示区*/
+#div_show{width:1000px;
+          height:auto;
+	      margin:20px auto;
+	     /* background:rgba(252,232,232,0.8);*/
+	      text-align: center;
+		  
+           }
+p.p_img{width:317px;
+	    height:317px;
+       /* float:left;*/
+	    margin-bottom:10px;	  
+	    display: inline-block;  
+	   /* backgroud:red; */
+	    position:relative;   
+	    
+       }
+
+p.p_img img{
+	   border-radius: 10px;
+	   margin:0px 8px 0px 0px;
+	   
+}
+#div_show p:nth-child(3n+3){
+      float: right;
+
+}
+#div_show p:nth-child(3n+1){
+      float: left;
+}
+
+
+
+
+#span_about{
+	display:inline-block; 
+    width:100%;
+	height:30px;
+    font-size:16px;
+    line-height:30px;			
+}
+
+img.pro_order{
+	opacity:0.6;
+}
+
+
+
+/*bottom*/
+#div_bottom{clear:both;
+	       width:100%;
+           height:200px;
+		   background:#CCC;	
+}
+
+/*view num*/
+
+

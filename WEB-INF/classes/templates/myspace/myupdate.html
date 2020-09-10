@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>个人中心</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/myspace.css}" />
+<link rel="stylesheet" th:href="@{/static/css/hoverbox.css}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+ 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/getnowtime.js}"></script>
+<style>
+    p.p-2 a{
+        color:white;
+
+    }
+    p.p-2 a:hover{
+        color:red;
+
+    }
+    
+    table tr td{
+        padding:10px 10px 10px 0px;
+    }
+    
+    input[type=text]{
+        padding-left:15px;
+    }
+    
+    .input1	{
+		  width: 400px;
+		  height: 50px;
+		  font-size: 18px;
+		  padding-left:6px;
+	}
+</style>	
+	
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+<div class="bg-success" id="top">
+    <img id="logo" th:src="${'/static/images/common/newlogo2.png'}" alt="" style="width:100px;" />
+	<h4>【个人中心】</h4>
+    <div class="d-flex mb-3" style="margin-top:50px;">
+		<p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;" th:href="@{/index.html}">首页</a></p>
+		<p class="p-2 flex-fill" id="nowtime" style="color:white;text-align:center;"></p>
+	    <p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;"  th:href="@{/bglogout}">安全退出</a></p>
+    </div>	
+</div>
+
+<div id="ps_main">
+    <div id="ps_left" style="width:26%;">
+        <table class="form-group" id="tab1" align="center" width="90%" border="0" cellpadding="5" cellspacing="10">
+
+	          <tr>
+	            <td align="center" colspan="2">
+	                <img style="border-radius: 50%;" width="100px" th:src="${photo}" alt="" />
+	                <span class="text-center" style="display:block;" th:text="${loginuser}"></span>
+	            </td>
+	          </tr>	
+	          <tr>
+	              <th width="30%" align="left">性别:</th>    
+
+	              <td align="left" th:text="${sex}"></td>
+	          </tr>
+	          <tr>
+	              <th align="left">邮箱:</th>    
+	          
+	              <td align="left" th:text="${email}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">Q&nbsp;Q:</th>    
+	          
+	             <td align="left" th:text="${qq}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">电话:</th>    
+	         
+	             <td align="left" th:text="${tel}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">地址:</th>    
+	         
+	             <td align="left" th:text="${address}"></td>
+	          </tr>
+	
+	          <tr>
+	              <th align="left">标签:</th>    
+	         
+	              <td align="left" th:text="${usermark}"></td>
+	          </tr>
+	
+	         
+        </table>
+        
+        <table id='tab2' width="90%" cellspacing="10px" cellpadding="5px" border="0" align='center'>
+          <tr>
+            <th align="right" id="th_fx">分享：</th>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/write.html}" target="_blank">发布</a></td>
+          </tr>
+          <tr align="left">
+            <td></td>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" href="">修改</a></td>
+          </tr>
+        </table>
+
+    </div>
+    
+    <div id="ps_right" style="width:72%;margin-top:20px;">
+		<form id="form1" name="form1" method="post" th:method="post" th:action="@{/updatemyinfo}">
+			<table width="100%" style="margin:10px auto;" border="0" cellpadding="10">
+			    <tr>
+			        <td colspan="2">
+			             <h3 class="text-center">用户修改</h3>
+			        </td>
+			    </tr>
+			    
+			    <tr>
+				        <td width="10%" class="text-right h6">昵称</td>
+				        <td><input class="input1 form-control" type="text" name="loginuser" style="width:92%;font-size:18px;" th:value="${loginuser}"></td>
+			    </tr>
+			    
+			     <tr>
+				        <td class="text-right h6">手机</td>
+				        <td><input class="input1 form-control" type="text" name="tel" style="width:92%;font-size:18px;" th:value="${tel}"></td>
+			     </tr>
+			     
+			     <tr>
+				        <td class="text-right h6">邮箱</td>
+				        <td><input class="input1 form-control" type="text" name="email" style="width:92%;font-size:18px;" th:value="${email}"></td>
+			     </tr>
+			     
+			      <tr>
+				        <td class="text-right h6">QQ</td>
+				        <td><input class="input1 form-control" type="text" name="qq" style="width:92%;font-size:18px;" th:value="${qq}"></td>
+			     </tr>
+			     
+			     <tr>
+				        <td class="text-right h6">地址</td>
+				        <td><input class="input1 form-control" type="text" name="address" style="width:92%;font-size:18px;" th:value="${address}"></td>
+			     </tr>
+			     
+			      <tr>
+				        <td class="text-right h6">标签</td>
+				        <td><input class="input1 form-control" type="text" name="usermark" style="width:92%;font-size:18px;" th:value="${usermark}"></td>
+			      </tr>
+			      
+			      <tr>
+				        <td colspan="2" align="center">
+				            <input type="hidden" name="id" th:value="${id}">
+				            <input type="hidden" name="pwd" th:value="${pwd}">
+			                <input type="hidden" name="photo" th:value="${photo}">
+			                <input type="hidden" name="userid" th:value="${userid}">
+			                <input type="hidden" name="comfrom" th:value="${comfrom}">
+			                <input type="hidden" name="regtime" th:value="${regtime}">
+			                <input type="hidden" name="sex" th:value="${sex}">
+			                <input type="hidden" name="logintimes" th:value="${logintimes}">
+			                <input type="hidden" name="lastlogintime" th:value="${lastlogintime}">
+			                <input type="hidden" name="classic" th:value="${classic}">
+			                <input type="hidden" name="state" th:value="${state}">
+			                <input type="hidden" name="truename" th:value="${truename}">
+			                <input type="hidden" name="telyzm" th:value="${telyzm}">
+			                <input type="hidden" name="label" th:value="${label}">
+			                <input type="hidden" name="ip" th:value="${ip}">
+							<input class="btn btn-success" type="submit" name="submit" value="修改">
+				        
+				        </td>
+			      </tr>
+			</table>
+		</form>
+    </div>
+</div>
+    
+<div style="clear:both;margin-bottom:20px;"></div>
+
+<div th:include="/common/bottom::footer"></div>
+</body>
+</html>

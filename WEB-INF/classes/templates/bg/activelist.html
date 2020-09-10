@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>活动列表</title>
+	
+	<link rel="stylesheet" th:href="@{/static/css/layout.css}" type="text/css" media="screen" />
+	<link rel="stylesheet" th:href="@{/static/css/hoverbox.css}" type="text/css" media="screen, projection" />
+	<script th:src="@{/static/js/jquery-1.5.2.min.js}" type="text/javascript"></script>
+	<script th:src="@{/static/js/hideshow.js}" type="text/javascript"></script>
+	<script th:src="@{/staitc/js/jquery.tablesorter.min.js}" type="text/javascript"></script>
+	<script type="text/javascript" th:src="@{/static/js/jquery.equalHeight.js}"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	$(document).ready(function() {
+
+	//When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+
+});
+    </script>
+    <script type="text/javascript">
+    $(function(){
+        $('.column').equalHeight();
+    });
+    
+    
+    //分页开始
+	var currentPage =[[${page}]];
+	var totalPage = [[${totalPage}]]
+	
+	//第一页
+	function firstPage(){
+		if(currentPage == 1){
+			alert("已经是第一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("first");
+		    formElement.href = "/activelist/page/1";
+			return true;
+		}
+	}
+	
+	
+	//下一页
+	function nextPage(){
+		if(currentPage == totalPage){
+			alert("已经是最后一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("next");
+		    var nextpage=currentPage+1;
+		    formElement.href = "/activelist/page/"+nextpage;
+			return true;
+		}
+	}
+	
+	//上一页
+	function previousPage(){
+		if(currentPage == 1){
+			alert("已经是第一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("pre");
+		    var prepage=currentPage-1;
+		    formElement.href = "/activelist/page/"+prepage;
+			return true;
+		}
+	}
+	
+	//尾页
+	function lastPage(){
+		if(currentPage == totalPage){
+			alert("已经是最后一页数据");
+			return false;
+		}else{
+		    var formElement = document.getElementById("last");
+		    formElement.href = "/activelist/page/"+totalPage;
+			return true;
+		}
+	}
+</script>
+</head>
+
+
+<body>
+
+<div th:include="/bg/top::admintop"></div>
+	
+	<section id="secondary_bar">
+		<div class="user">
+			<p>admin</p>
+			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
+		</div>
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a th:href="@{/admin}">后台管理中心</a> <div class="breadcrumb_divider"></div> <a class="current">管理活动</a></article>
+		</div>
+	</section><!-- end of secondary bar -->
+
+<div th:include="/bg/leftmenu::leftmenu"></div>	
+
+	<section id="main" class="column">
+		
+		<article class="module width_full">
+		<header><h3 class="tabs_involved">活动管理列表</h3>
+		</header>
+		<div class="tab_container">
+		     <p>
+			        <form id="form1" name="form1" method="post" th:action="@{/searchactivelist/page/1}" target="_self" onsubmit="return search(this)">
+				        &nbsp;&nbsp;&nbsp;<input style="padding-left:8px;width:200px;height:36px;border-radius:5px;" type="text" onfocus="this.placeholder=''" onblur="this.placeholder='标题'" name="keyword" id="keywords" placeholder="标题" />
+				        &nbsp;<input style="height:36px;" type="submit" name="button" id="button" value="搜索" />
+		            </form>
+			</p>
+			<div id="tab1" class="tab_content">
+			<th:block th:if="${#lists.size(all) gt 0}">
+				<table class="tablesorter" cellspacing="0" style="margin:0"> 
+					<thead> 
+						<tr>  
+			    				<th>ID</th>
+			    				<th>发布人</th>
+			    				<th>标题</th>
+                                <th>图片</th>
+			    				<th>内容</th>
+					    		<th>时间</th>
+                                <th>状态</th>
+                                <th>位置</th>
+                                <th>操作</th>
+						</tr> 
+					</thead>
+					<tbody>
+					<th:block th:if="${all != null}" th:each="all:${all}">
+						<tr>
+                                <td align="left" valign="top" th:text="${all.id}"></td>
+			    				<td align="left" valign="top" th:text="${all.username}"></td> 
+			    				<td width="10%" align="left" valign="top" th:text="${all.title}"></td> 
+                                <td align="left" valign="top">
+                                <ul class="hoverbox">
+				    				<li>
+	                                   <a href="#"><img height="40px" th:src="@{'/static/images/active/'+${all.activephoto}}"><img th:src="@{'/static/images/active/'+${all.activephoto}}" alt="" class="preview"></a>
+	                                </li>
+                                </ul>
+                                </td> 
+			    				<td width="30%" style="text-align:justify;" align="left" valign="top" th:text="${all.content}"></td> 
+			    				<td align="left" valign="top" th:text="${#dates.format(all.pubtime,'yyyy-MM-dd hh:mm:ss')}"></td> 
+                                <td align="left" valign="top" th:switch="${all.state}">
+                                    <span th:case="0">不显示</span>
+                                    <span style="color:red;" th:case="1">显示</span>
+                                </td> 
+			    				<td align="left" valign="top" th:switch="${all.pos}">
+			    				     <span th:case="0">正常</span>
+                                    <span style="color:red;" th:case="1">首页</span>
+			    				</td> 
+			    				<!-- <td align="left" valign="top">
+			    				     <input type="image" src="__img__/icn_edit.png" title="Edit" onClick="window.location.href='/activeupdate/id/{$value.id}'">
+			    				     <input type="image" src="__img__/icn_trash.png" title="Trash" onClick="window.location.href='/active_del/id/{$value.id}'">
+			    				</td> -->
+			    				
+			    				<td align="left" valign="top">
+			    				     <a th:href="@{'/activeupdate/id/'+${all.id}}">修改</a>
+			    				     <a th:href="@{'/activedel/id/'+${all.id}}">删除</a>
+			    				</td>
+						</tr>
+					</th:block>
+					</tbody>
+					<tfoot> 
+						<tr>  
+			    			<td align='center' colspan="10">
+			    			<p id="pagenav">
+							    <br> &nbsp;&nbsp; 共<span th:text="${totalRecord}"></span>条记录,每页<span th:text="${pagesize}"></span>条,共<span th:text="${totalPage}"></span>页,&nbsp;&nbsp;当前第<span th:text="${page}"></span>页&nbsp;&nbsp;
+							    <a id="first" href="javascript:void(0);" onclick="firstPage();">首页</a>&nbsp;&nbsp; 
+								<a id="pre" href="javascript:void(0);" onclick="previousPage();">上一页</a>&nbsp;&nbsp;
+								<a id="next" href="javascript:void(0);" onclick="nextPage();">下一页</a>&nbsp;&nbsp;
+								<a id="last" href="javascript:void(0);" onblur="lastPage();">尾页</a>			
+							</p>
+			    			</td>
+						</tr> 
+					</tfoot>
+				</table>
+			</th:block>
+			
+			<th:block th:if="${#lists.size(all) eq 0}">
+				<table border='0' width='90%' cellpadding='10' cellspacing='0' align='center' style="margin:20px auto;">
+				<tr>
+					<td style="border-bottom:none;font:18px 'Microsoft Yahei';text-align: left;">没有任何活动！</td>
+				</tr>
+				</table>
+            </th:block>
+			</div><!-- end of #tab1 -->
+			
+			<div id="tab2" class="tab_content">
+
+			</div><!-- end of #tab2 -->
+			
+		</div><!-- end of .tab_container -->
+		
+		</article><!-- end of content manager article -->
+		<div class="spacer"></div>
+	</section>
+
+
+</body>
+
+</html>

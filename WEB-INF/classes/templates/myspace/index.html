@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/myspace.css}" />
+<link rel="stylesheet" th:href="@{/static/css/hoverbox.css}" type="text/css" media="screen, projection" />
+<link rel="stylesheet" th:href="@{/static/css/banwubot.css}"/>
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+ 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+ 
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/getnowtime.js}"></script>
+
+<style>
+
+    div#pagenav a{
+         color:black;
+         text-decoration:none;
+    }
+    
+    div#pagenav a:hover{
+         color:red;
+    }
+    
+    p.p-2 a{
+        color:white;
+
+    }
+    p.p-2 a:hover{
+        color:red;
+
+    }
+</style>
+<script>
+
+
+/**************************分页***********************************/
+var currentPage =[[${page}]];
+var totalPage = [[${totalPage}]]
+
+//第一页
+function firstPage(){
+	if(currentPage == 1){
+		alert("已经是第一页数据");
+		return false;
+	}else{
+	    var formElement = document.getElementById("first");
+	    formElement.href = "/myspace.html/page/1";
+		return true;
+	}
+}
+
+//下一页
+function nextPage(){
+	if(currentPage == totalPage){
+		alert("已经是最后一页数据");
+		return false;
+	}else{
+	    var formElement = document.getElementById("next");
+	    var nextpage=currentPage+1;
+	    formElement.href = "/myspace.html/page/"+nextpage;
+		return true;
+	}
+}
+
+//上一页
+function previousPage(){
+	if(currentPage == 1){
+		alert("已经是第一页数据");
+		return false;
+	}else{
+	    var formElement = document.getElementById("pre");
+	    var prepage=currentPage-1;
+	    formElement.href = "/myspace.html/page/"+prepage;
+		return true;
+	}
+}
+
+//尾页
+function lastPage(){
+	if(currentPage == totalPage){
+		alert("已经是最后一页数据");
+		return false;
+	}else{
+	    var formElement = document.getElementById("last");
+	    formElement.href = "/myspace.html/page/"+totalPage;
+		return true;
+	}
+}
+
+
+</script>
+</head>
+<body>
+<div class="bg-success" id="top">
+    <img id="logo" th:src="${'/static/images/common/newlogo2.png'}" alt="" style="width:100px;" />
+	<h4>【个人中心】</h4>
+    <div class="d-flex mb-3" style="margin-top:50px;">
+		<p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;" th:href="@{/index.html}">首页</a></p>
+		<p class="p-2 flex-fill" id="nowtime" style="color:white;text-align:center;"></p>
+	    <p class="p-2 flex-fill" style="text-align:center;"><a style="text-decoration:none;"  th:href="@{/bglogout}">安全退出</a></p>
+    </div>	
+</div>
+
+<div id="ps_main">
+    <div id="ps_left" style="width:26%;">
+        <table id="tab1" align="center" width="90%" border="0" cellpadding="5" cellspacing="10">
+
+	          <tr>
+	            <td align="center" colspan="2">
+	               <th:block th:if="${photo !=null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${photo}" alt="" />
+	               </th:block>
+	                <th:block th:if="${photo == null}">
+	                   <img style="border-radius: 50%;" width="100px" th:src="${'/static/images/common/newlogo2.png'}" alt="" />
+	               </th:block>
+	                <span class="text-center" style="display:block;" th:text="${loginuser}"></span>
+	            </td>
+	          </tr>		
+	          <tr>
+	              <th width="30%" align="left">性别:</th>    
+
+	              <td align="left" th:text="${sex}"></td>
+	          </tr>
+	          <tr>
+	              <th align="left">邮箱:</th>    
+	          
+	              <td align="left" th:text="${email}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">Q&nbsp;Q:</th>    
+	          
+	             <td align="left" th:text="${qq}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">电话:</th>    
+	         
+	             <td align="left" th:text="${tel}"></td>
+	          </tr>
+	
+	          <tr>
+	             <th align="left">地址:</th>    
+	         
+	             <td align="left" th:text="${address}"></td>
+	          </tr>
+	
+	          <tr>
+	              <th align="left">标签:</th>    
+	         
+	              <td align="left" th:text="${usermark}"></td>
+	          </tr>
+	
+	         
+        </table>
+        
+        <table id='tab2' width="90%" cellspacing="10px" cellpadding="5px" border="0" align='center'>
+          <tr>
+            <th align="right" id="th_fx">分享：</th>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/write.html}" target="_blank">发布</a></td>
+          </tr>
+          <tr align="left">
+            <td></td>
+            <td><a class="btn btn-success btn-lg" style="width:50%;" th:href="@{/myupdate.html}">修改</a></td>
+          </tr>
+        </table>
+
+    </div>
+    
+    <div id="ps_right" style="width:72%;margin-top:20px;">
+     
+	<!-- 还未被预订物品 -->
+	    
+	<h2 style="text-align: center;font-size: 25px;width:100%;margin-bottom:15px;">还未被预订分享物品(共<span class="text-danger" th:text="${noorderpros.size()}"></span>件)</h2>
+	<th:block th:if="${#lists.size(noorderpros) gt 0}">
+	        <th:block th:each="noall:${noorderpros}">
+	        <table class="table" id='tab3' width="100%" align='left' cellspacing="10" cellpadding="10" border='0' style="margin-bottom:40px;">  
+	         <thead>
+		          <tr>
+		            <th align="center" width="10%">图片</th>
+		            <th align="center" width="8%">名称</th>
+		            <th align="center" width="8%">数量</th>
+		            <th align="center" width="6%">浏览</th>
+		            <th align="center" width="6%">点赞 </th>
+		            <th align="center" width="14%">描述</th>
+		            <th align="center" width="8%">电话</th>
+		            <th align="center" width="10%">发布时间</th>
+		            <th align="center" width="12%">条件</th>
+		            <th align="center" width="8%">审核</th>
+		           <!--  <th align="center" width="10%">操作</th>   -->
+		          </tr>		
+	         </thead>
+	         <tbody>
+		         <tr>
+		            <td align="center">
+		                 <ul class="hoverbox">
+			                  <li>
+			                  <a href="#"><img height="40px" th:src="@{'/static/images/pros/'+${noall.propic}}" alt="description"><img th:src="@{'/static/images/pros/'+${noall.propic}}" alt="" class="preview"></a>
+			                  </li>
+		                 </ul>
+		            </td>
+		            <td align="left" th:text="${noall.proname}"></td>
+		            <td align="left" th:text="${noall.number}"></td>
+		            <td align="left" th:text="${noall.hits}"></td>
+		            <td align="left" th:text="${noall.points}"></td>
+		            <td align="left" th:text="${noall.proabout}"></td>
+		            <td align="left" th:text="${noall.tel}"></td>
+		            <td align="left" th:text="${#dates.format(noall.pubtime, 'yyyy-MM-dd hh:mm:ss')}"></td>
+		            <td align="left" th:text="${noall.procon}"></td>
+		            <td align="left" th:if="${noall.state == 1}" style="color:red;">通过</td>
+	                <td align="left" th:if="${noall.state == 0}" style="color:green;">未通过</td>	            
+		         <!--   <td align="left">
+		                  <a th:href="@{/myproupdate}">修改</a><br />
+		                 
+		                   <a th:href="@{'/delmypro/proid/'+${noall.proid}}">删除</a>
+		                   
+		            </td>-->  
+		        </tr>    
+		        </tbody>
+		   </th:block>
+	
+	      </table>
+	      <div id="pagenav" class="h6 text-dark" style="margin-bottom:60px;text-align:center;height:auto;width:100%;">
+		    &nbsp;&nbsp; 共<span th:text="${totalRecord}"></span>条记录,每页<span th:text="${pagesize}"></span>条,共<span th:text="${totalPage}"></span>页,&nbsp;&nbsp;当前第<span th:text="${page}"></span>页&nbsp;&nbsp;
+		    <a id="first" href="javascript:void(0);" onclick="firstPage();">首页</a>&nbsp;&nbsp; 
+			<a id="pre" href="javascript:void(0);" onclick="previousPage();">上一页</a>&nbsp;&nbsp;
+			<a id="next" href="javascript:void(0);" onclick="nextPage();">下一页</a>&nbsp;&nbsp;
+			<a id="last" href="javascript:void(0);" onblur="lastPage();">尾页</a>		
+		  </div>
+	</th:block>
+	
+	<th:block th:if="${#lists.size(noorderpros) eq 0}">
+				<p>暂时没有发布物品</p>
+	</th:block>  
+        
+    <!-- 被预订物品 -->
+    <h2 style="text-align: center;font-size: 25px;width:100%;margin-bottom:15px;">已被预订分享物品(共<span class="text-danger" th:text="${all.size()}"></span>件)</h2>
+    <th:block th:if="${#lists.size(all) gt 0}">
+        <th:block th:each="all:${all}">
+	    <table class="table" id='tab3' width="100%" align='left' cellspacing="10" cellpadding="10" border='0'>  
+	     <thead>
+	       <tr>
+		         <th align="center" width="10%">图片</th>
+		         <th align="center" width="10%">名称</th>
+		         <th align="center" width="12%">发布时间</th>
+		         <th align="center" width="8%">审核</th>
+		         <th align="center" width="8%">预订人</th>
+		         <th align="center" width="10%">联系方式</th>
+		         <th align="center" width="10%">预订时间</th>
+		         <th align="center" width="12%">地址</th>
+		         <th align="center" width="10%">留言</th>
+		         <th align="center" width="10%">发货状况</th>
+	       </tr>		
+	     </thead>
+	     <tbody>
+	       <tr>
+	         <td align="center">
+	              <ul class="hoverbox">
+	                <li>
+	                <a href="#"><img height="40px" th:src="@{'/static/images/pros/'+${all.propic}}" alt="description"><img th:src="@{'/static/images/pros/'+${all.propic}}" alt="" class="preview"></a>
+	                </li>
+	              </ul>
+	         </td>
+	         <td align="left" th:text="${all.proname}"></td>
+	         <td align="left" th:text="${#dates.format(all.pubtime, 'yyyy-MM-dd hh:mm:ss')}"></td>
+	         <td align="left" th:if="${all.state == 1}" style="color:red;">通过</td>
+	            <td align="left" th:if="${all.state == 0}" style="color:green;">未通过</td>	            
+	         <th:block th:if="@{all.iorders != null}" th:each="order:${all.iorders}"> 
+	         <td align="left" th:text="${order.ordername}"></td>
+	         <td align="left" th:text="${order.orderlj}"></td>
+	         <td align="left" th:text="${#dates.format(order.ordertime, 'yyyy-MM-dd HH:mm')}"></td>
+	         <td align="left" th:text="${order.orderaddress}"></td>
+	         <td align="justify" th:text="${order.ly}"></td>
+	         </th:block>
+	         <td align="left" th:if="${all.sendstate == 1}"><a class="btn btn-danger btn-sm" style="javascript:void(0);background:red;color:white;border-radius: 10px;padding:5px 20px;">已发货</a></td>
+	         <td align="center" th:if="${all.sendstate == 0}"><a class="btn btn-success btn-sm" th:href="@{'/sendprostate/proid/'+${all.proid}}" style="background:green;color:white;border-radius: 10px;padding:5px 20px;">待发货</a></td>
+	       </tr>          
+	       </tbody>
+	     </th:block>
+	    
+	    </table>
+    </th:block>
+    
+    <th:block th:if="${#lists.size(all) eq 0}">
+				<p>你还没有分享任何物品！</p>
+	</th:block>  
+    
+    <p style="margin-top:80px;width:100%;text-align:right;">
+       <a class="btn btn-warning border-0" style="margin-right:80px;" th:href="@{/getpro.html}">获取物品清单</a>
+    </p>
+
+    </div>
+</div>
+
+
+
+<div style="clear:both;margin-bottom:20px;"></div>
+
+<div th:include="/common/bottom::footer"></div>
+
+</body>
+</html>

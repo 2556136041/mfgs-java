@@ -1,0 +1,207 @@
+@charset="UTF-8";
+
+
+
+
+*{
+	margin:0px;
+	padding:0px;
+	color:black;
+}
+body{
+	width:100%;
+}
+a{
+	text-decoration:none;
+    color:black;
+  
+}
+
+/*top*/
+div#top{	
+	width:100%;
+	height:180px;
+	padding-top:30px;
+}
+a:hover{color:white;}
+h1{	font-family: "华文彩云";
+	font-size: 50px;
+	margin:5px 10px;
+	text-align: center;
+}
+div#top h4{
+	color:black;
+	text-align: center;
+	}
+
+img#logo{
+	 position: absolute;
+     left: 30px;
+     top: 20px;
+}
+
+p.p-2 a{
+    color:white;
+
+}
+p.p-2 a:hover{
+    color:red;
+
+}
+
+/*main*/
+div#ps_main{
+	width:100%;
+	height: auto;
+	background: green;
+	margin:15px auto;
+	font:16px 'Microsoft YaHei';
+}
+
+/*left*/
+div#ps_left{
+	background:rgba(220,220,220,0.4);
+	height:auto;
+	float:left;
+	font-size: 16px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	box-shadow: 2px 2px 2px rgba(220,220,220,0.8);
+
+}
+div#ps_left a{text-decoration: none;
+  display:inline-block;
+  border:1px solid rgb(51,187,51);
+  border-radius:10px;
+  padding:5px 16px;
+  font-family:"微软雅黑";
+  
+}
+div#ps_left a:hover{
+  background:rgb(51,187,51);
+  color:white;
+}
+table#tab1 td,table#tab1 th{
+	padding:5px;
+	
+}
+
+table#tab2 td{
+	padding:5px;
+	
+}
+#tab1,#tab2{margin:20px auto;}
+#tab1>th,#tab2>th{width: 100%;}
+#tab2>th#th_fx{width: 60px;}
+
+/*right*/
+div#ps_right{
+	height: auto;
+	float:right;
+	font:16px 'Microsoft YaHei';
+
+}
+
+p#getpro{
+	margin: 30px;
+	font:20px 'Microsoft YaHei';
+	text-align: right;
+
+}
+p#getpro a{
+	border: 1px solid rgb(51,187,51);
+	border-radius:10px;
+	padding:2px 10px;
+
+
+}
+
+p#getpro a:hover{
+	background: rgb(51,187,51);
+	color:white;
+
+}
+
+/*发布pro*/
+ 
+#div_pub{
+    font-family:"微软雅黑";
+    font-size:16px; 
+	width:800px;
+	height:auto;
+	/*background:rgba(102,255,204,1);*/
+	padding: 20px 20px;
+}
+#div_upload,#div_content{width:100%;
+	                     height:auto;
+	                     margin:15px auto;
+	                /*     background:rgba(10,10,10,0.1); */
+}
+
+
+.th_ts{text-align: right;}
+.proInp{
+	width: 100%;
+	height:35px;
+	font-size: 15px;
+	padding-left: 6px;
+	line-height: 40px;
+	
+}
+
+.proarea{
+    height:300px;
+}
+
+select{
+     outline: none;
+     width: 100px;
+     height: 35px;
+     line-height: 35px;
+     padding-left: 6px;
+   	 font-size: 16px;
+   	 font-family: "微软雅黑";
+   	 color:red;
+	 
+   }
+   
+.input2{
+	  width: 100%;
+	  height: 50px;
+	  font-size: 18px;
+	  padding-left:6px;
+}
+
+
+/*上传图片进程条*/    
+
+#probox {
+    width: 760px; 
+    height: 20px; 
+    line-height: 20px; 
+    display: none;
+    margin-bottom:20px;
+}
+#probar {
+	display:inline-block;
+    width: 0; 
+    height: 20px; 
+    background:green;
+    text-align:right;
+}
+
+#imgshow{
+	display:none;
+
+}
+#imgname{
+	color:blue;
+}
+
+input[type=file]{
+	display: inline-block;
+	font-size:20px;
+	width:250px;
+	height:40px;
+
+}

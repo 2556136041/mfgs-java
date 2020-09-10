@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>proshow</title>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+<style type="text/css">
+#div_main{width: 600px;
+	      margin:20px auto;
+	      background:#F5F5F5;
+	      border-radius:5px; 
+}
+table{width:100%;
+      margin:0px;
+	  padding:0px;
+}
+th{text-align: right;}
+
+#allow{
+  background:rgb(204,204,102);
+  font:18px '微软雅黑';
+  text-align:center;
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px black;
+  text-decoration: none;
+  color:white;
+  padding:3px 15px;
+  }
+#allow:hover{
+	background-color: rgb(51,187,51);
+	color:white;
+  }
+#refuse{
+  background:red;
+  font:18px '微软雅黑';
+  text-align:center;
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px black;
+  text-decoration: none;
+  color:white;
+  padding:3px 15px;
+  }
+#refuse:hover{
+	background-color: red;
+	color:white;
+  }
+
+</style>
+</head>
+<body>
+<div th:include="/common/top::header"></div>
+<div id="div_main">
+	<table border="0" cellspacing="10" cellpadding="10">
+		<tr>
+			<td colspan="2"><img width="100%" th:src="@{'/static/images/pros/'+${propic}}" alt="" /></td>
+		</tr>
+        <tr>
+			<th>类别：</th>
+			<th:block th:switch="${protype}">
+                       <td th:case="jj">家具</td>
+			           <td th:case="jd">家电</td>
+			           <td th:case="cw">宠物</td>
+			           <td th:case="sp">私品</td>
+			           <td th:case="sj">书刊</td>
+			</th:block>
+		</tr>
+		<tr>
+			<th>名称：</th>
+			<td th:text="${proname}"></td>
+		</tr>
+	<!-- 	<tr>
+			<th>费用：</th>
+			<td>{$data.pro_price}</td>
+		</tr> -->
+		<tr>
+			<th>介绍：</th>
+			<td th:text="${proabout}"></td>
+		</tr>
+		<tr>
+			<th>条件：</th>
+			<td th:text="${procon}"></td>
+		</tr>
+		<!-- <tr>
+			<td colspan="2">
+			<p style="padding:20px;"><img src="__img__/tb22.png" width="30px"  align="absmiddle" />&nbsp;&nbsp;<img src="__img__/tel.png" width="30px" height="30px" align="absmiddle" />&nbsp;&nbsp;<img src="__img__/QQ11.png" width="30px" height="30px" align="absmiddle" /></p>
+			</td>
+		</tr> -->
+		<tr>
+			<td colspan="2" align="center" style="padding: 15px 0px;">
+			      <th:block th:if="${remainnum >= 1}"> 
+                       <a class="btn btn-success" th:href="@{'/proorder.html/id/'+${proid}}">我要了</a>
+                  </th:block>
+                  <th:block th:if="${remainnum eq 0}"> 
+                       <a class="btn btn-secondary disabled" href="javascript:void(0)">来晩了</a>
+                  </th:block>
+			      
+			</td>
+		</tr>
+	
+	</table>
+</div>
+<div th:include="/common/bottom::footer"></div>
+</body>
+</html>
+</html>

@@ -1,0 +1,82 @@
+{
+  "groups": [
+    {
+      "name": "shownums",
+      "type": "com.mfgs.config.ShownumsConfig",
+      "sourceType": "com.mfgs.config.ShownumsConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadWishimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadWishimgPathConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadProsimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadProsimgPathConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadActiveimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadActiveimgPathConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadComplainimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadComplainimgPathConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadStoryimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadStoryimgPathConfig"
+    },
+    {
+      "name": "web",
+      "type": "com.mfgs.config.UploadNoticeimgPathConfig",
+      "sourceType": "com.mfgs.config.UploadNoticeimgPathConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "shownums.newsnums",
+      "type": "java.lang.Integer",
+      "sourceType": "com.mfgs.config.ShownumsConfig"
+    },
+    {
+      "name": "shownums.pronums",
+      "type": "java.lang.Integer",
+      "sourceType": "com.mfgs.config.ShownumsConfig"
+    },
+    {
+      "name": "web.uploadactive-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadActiveimgPathConfig"
+    },
+    {
+      "name": "web.uploadcomplain-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadComplainimgPathConfig"
+    },
+    {
+      "name": "web.uploadnotice-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadNoticeimgPathConfig"
+    },
+    {
+      "name": "web.uploadpros-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadProsimgPathConfig"
+    },
+    {
+      "name": "web.uploadstory-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadStoryimgPathConfig"
+    },
+    {
+      "name": "web.uploadwish-path",
+      "type": "java.lang.String",
+      "sourceType": "com.mfgs.config.UploadWishimgPathConfig"
+    }
+  ],
+  "hints": []
+}

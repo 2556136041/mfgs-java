@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+*{margin:0;padding:0;}
+li{list-style-type:none;}
+a{text-decoration:none;}
+/*导航*/
+/*#div_nav{width:100%;
+         height:60px;
+		 background-image: url(__img__/ys.jpg);
+		 background-repeat: repeat;
+	     }*/
+#div_nav{width:100%;
+         height:60px;
+		 background: rgb(51,187,51);
+	     }
+#ul_nav{width:1000px;
+        height:60px;
+
+		margin:0px auto;   
+	    }
+#ul_nav li{float:left;
+           width:12.5%;
+		   font:20px "微软雅黑";
+		   font-weight: 700;
+		   height:60px;
+		   text-align:center;
+		   color:#FFF;
+		   line-height:60px;
+		   margin:0px;
+		   padding:0px;
+          }
+span.space_pad{
+	padding:0px 8px;
+}
+.li_nav a{color:#FFF;}
+.li_nav a:list,.li_nav a:visited{color:#FFF;
+	                 	         }
+/*.li_nav a:hover{display:inline-block;
+	            width:90%;
+                height:60px;
+				background-image: url(__img__/ys1.jpg);
+                background-repeat: repeat;
+				color:#FFF;
+				}*/
+.li_nav a:hover{display:inline-block;
+	            width:90%;
+                height:60px;
+				background:rgb(102,204,102);
+				color:#FFF;
+				}
+

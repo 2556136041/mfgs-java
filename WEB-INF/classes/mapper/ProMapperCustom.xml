@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfgs.mapper.ProMapperCustom">
+  
+    <resultMap id="proMap" type="com.mfgs.pojo.Pro">
+	    <id column="proid" jdbcType="INTEGER" property="proid" />
+	    <result column="pos" jdbcType="INTEGER" property="pos" />
+	    <result column="protype" jdbcType="VARCHAR" property="protype" />
+	    <result column="userdig" jdbcType="INTEGER" property="userdig" />
+	    <result column="proname" jdbcType="VARCHAR" property="proname" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="hits" jdbcType="INTEGER" property="hits" />
+	    <result column="points" jdbcType="INTEGER" property="points" />
+	    <result column="username" jdbcType="VARCHAR" property="username" />
+	    <result column="city" jdbcType="VARCHAR" property="city" />
+	    <result column="tel" jdbcType="VARCHAR" property="tel" />
+	    <result column="useraddress" jdbcType="VARCHAR" property="useraddress" />
+	    <result column="pubaddress" jdbcType="VARCHAR" property="pubaddress" />
+	    <result column="degree" jdbcType="VARCHAR" property="degree" />
+	    <result column="number" jdbcType="INTEGER" property="number" />
+	    <result column="remainnum" jdbcType="INTEGER" property="remainnum" />
+	    <result column="proprice" jdbcType="INTEGER" property="proprice" />
+	    <result column="propic" jdbcType="VARCHAR" property="propic" />
+	    <result column="procon" jdbcType="VARCHAR" property="procon" />
+	    <result column="pubtime" jdbcType="TIMESTAMP" property="pubtime" />
+	    <result column="state" jdbcType="INTEGER" property="state" />
+	    <result column="setorder" jdbcType="INTEGER" property="setorder" />
+	    <result column="sendstate" jdbcType="INTEGER" property="sendstate" />
+	    <result column="proabout" jdbcType="LONGVARCHAR" property="proabout" />										
+    </resultMap>
+    
+    <resultMap id="iorderMap" type="com.mfgs.pojo.Iorder" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="proid" property="proid" jdbcType="INTEGER" />
+	    <result column="ordername" property="ordername" jdbcType="VARCHAR" />
+	    <result column="getstate" property="getstate" jdbcType="INTEGER" />
+	    <result column="orderaddress" property="orderaddress" jdbcType="VARCHAR" />
+	    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+	    <result column="orderlj" property="orderlj" jdbcType="VARCHAR" />
+	    <result column="ly" property="ly" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    
+     <resultMap id="proinfoMap" extends="proMap" type="com.mfgs.pojo.Pro">
+         <collection property="iorders" resultMap="iorderMap" />
+     </resultMap>
+  
+  
+    <!-- 单表自定义方法 -->
+    <update id="updateProSetorder" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">setorder=#{setorder}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updateProSendstate" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">sendstate=1</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updateProRemainnum" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">remainnum=#{remainnum}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updateProState" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">state=#{state}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updateProPos" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">pos=#{pos}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updateProhits" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">hits=#{hits}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+    
+    <update id="updatePropoints" parameterType="com.mfgs.pojo.Pro">
+        update Pro
+        <set>
+            <if test="_parameter!=null">points=#{points}</if>
+        </set>
+        where proid=#{proid}
+    </update>
+  
+   <!-- 多表自定义方法 -->
+    <select id="selectshareproinfoById" parameterType="int" resultMap="proinfoMap">
+         SELECT
+            a.*,b.*
+         FROM 
+            Pro a,Iorder b
+         WHERE 
+            a.proid=b.proid
+         AND
+            a.proid=#{proid}
+    </select>
+    
+    <select id="allShareprosOrderByUsername" parameterType="java.lang.String" resultMap="proinfoMap">
+         SELECT
+            a.*,b.*
+         FROM 
+            Pro a,Iorder b
+         WHERE 
+            a.username=#{user}
+         AND
+            a.proid=b.proid
+    </select>
+  
+  
+</mapper>

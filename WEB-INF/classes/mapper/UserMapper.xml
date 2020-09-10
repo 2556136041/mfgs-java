@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfgs.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.mfgs.pojo.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="loginuser" jdbcType="VARCHAR" property="loginuser" />
+    <result column="label" jdbcType="INTEGER" property="label" />
+    <result column="comfrom" jdbcType="INTEGER" property="comfrom" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="truename" jdbcType="VARCHAR" property="truename" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="userid" jdbcType="CHAR" property="userid" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="regtime" jdbcType="TIMESTAMP" property="regtime" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="logintimes" jdbcType="INTEGER" property="logintimes" />
+    <result column="lastlogintime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="classic" jdbcType="INTEGER" property="classic" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="telyzm" jdbcType="VARCHAR" property="telyzm" />
+    <result column="usermark" jdbcType="LONGVARCHAR" property="usermark" />
+  </resultMap>
+  
+</mapper>

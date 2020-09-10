@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html mip>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">    
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="我要免费公社网：个人闲置物品免费分享平台">
+<meta name="keywords" content="家具、家电、衣物、书刊、私品等个人闲置物品免费分享领取">
+<meta name="sogou_site_verification" content="QjlImBuxRJ"/>
+<title>免费公社</title>
+<link rel="stylesheet" th:href="@{/static/css/index.css}"/>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/static/js/getnowtime.js}"></script>
+<style>
+
+
+</style>
+
+<script>
+       window.onload=function(){
+           if($(window).height()<1000){
+                 $(document.body).css("height","1000px");
+           }
+           
+           if(getQueryString("tj")!==""){
+        	   alert(decodeURI(getQueryString("tj")));
+           }
+        }
+       //获取url携带的数据
+       function getQueryString(name) {
+	        var result = window.location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+	        if (result == null || result.length < 1) {
+	            return "";
+	        }
+	        return result[1];
+       }   
+       
+
+        function login(obj){
+            var login_cover=document.getElementById('login_cover');
+            var login_modal=document.getElementById('login_modal');
+            var login_closer=document.getElementById('login_closer');
+            login_cover.style.display='block';
+            login_cover.style.zIndex='100';
+            login_closer.onclick=function(){
+                login_cover.style.display='none';
+            }
+
+        }
+  
+</script>
+
+</head>
+
+<body class="bg-success">
+<!-- loading -->
+<div class="loading">
+    <div class="pic"></div>
+</div>
+
+<!-- login -->
+<div id="login_cover">
+  <div id="login_modal">
+     <span id="login_closer"><a href="javascript:void(0);">×</a></span>
+      <table id="login_tab" border="0" cellpadding="15px" cellspacing="15px">
+        <tr>
+           <td colspan="2"><h2 style="text-align: center;">用户登陆</h2></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="form-group">
+           <!--/  <p  th:each="cookie :${#httpServletRequest.getCookies()[1]}">
+                  <input th:value="${cookie.getName().equals('user')} ? ${cookie.getValue()} : ''"  class="form-control" onfocus="this.placeholder=''" onblur="this.placeholder='用户名'" type="text" name='username' onkeydown="switchKey(document.getElementById('pwd'))" id="username" placeholder="用户名" />
+             </p>
+           /-->  
+           <p>
+                  <input class="form-control" onfocus="this.placeholder=''" onblur="this.placeholder='用户名'" type="text" name='username' onkeydown="switchKey(document.getElementById('pwd'))" id="username" placeholder="用户名" />
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="form-group">
+             <p>
+               <input class="form-control" onfocus="this.placeholder=''" onblur="this.placeholder='密码'" type="password" name="pwd" onkeydown="switchKey(document.getElementById('username'))" id="pwd" placeholder="密码" />
+             </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="form-group">
+             <p>
+                 <input class="form-control" type="text" id="verifyCode" size="6" onfocus="this.placeholder=''" onblur="this.placeholder='验证码'" placeholder="验证码" />
+             </p>
+             <p>
+                 <img id="verityimg" style="width:120px;height:40px;" th:src="@{/kaptcha}" />
+	             <a href="#" style="color:white;" onclick="changeImg()"><label for="verityimg" style="color:black;">看不清？</label></a>
+             </p>
+          </td>
+        </tr>
+        <tr>
+              <td colspan="2" class="clearfix">
+                  <span class="float-left"><input type="radio" value="7" name="savetime" id="savetime" checked="checked" /><label for="savetime">保存7天</label></span>   
+                  <span class="float-right"><a th:href="@{/getbackpwd.html}">忘记密码?</a></span>       
+              </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;padding-bottom:8px;">
+            <button class="btn btn-success btn-block" onclick="login_ajax()">登陆</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="clearfix">
+                <span class="float-left">其他登陆方式:&nbsp;<a th:href="@{/getQQCode}"><img align="top" border="0" th:src="@{/static/images/common/QQ.jpg}" width="30px"></a></span>
+                <span class="float-right"><a th:href="@{/reg.html}">注册</a></span>
+           </td>
+        </tr>
+      </table>
+  </div>
+</div>
+
+<script>
+
+/*<![CDATA[*/
+//切换表单焦点
+function switchKey(obj){
+       if(event.keyCode==40){
+             obj.focus();
+       }
+}
+
+//刷新验证码
+function changeImg(){        
+	   var img = document.getElementById("verityimg");         
+	   img.src = "/kaptcha?date=" + new Date();    
+}
+
+//点击登陆
+function login_ajax(){
+	
+    var username=$('#username').val();
+    var pwd=$('#pwd').val();
+    var verifyCode=$('#verifyCode').val();
+    $.post("/login",
+        {"username":username,"pwd":pwd,"submitCode":verifyCode},function(data){
+        if(data==200){
+             setTimeout(function(){
+                   $('#tjbut').css("background-color","red").css('color','white').text('登陆...');
+                   window.location="/index.html"; 
+             },1000); 
+        }else if(data==701){
+            alert('验证码有误！');
+        }else{
+        	alert('未知错误！');
+        }
+    });
+}
+
+//按回车键登陆
+$("body").keydown(function() {
+    if (event.keyCode == "13") {//keyCode=13是回车键
+        var username=$('#username').val();
+        var pwd=$('#pwd').val();
+        $.get("/login_ok.html",
+            {"username":username,"pwd":pwd},function(data){
+            if(data==0){
+                 setTimeout(function(){
+                     $('#tjbut').css("background-color","red").css('color','white').text('登陆...');
+                     window.location="/index.html"; 
+                 },1000);
+                 
+            }else{
+                alert('失败！');
+            }
+        });        
+    }
+});  
+
+//点击退出
+function logout_ajax(){
+        $.get("/logout",
+	    function(data){
+	           if(data=="0"){
+		             alert('成功注销！'); 
+		             window.location="/index.html";
+		        }else{ 
+		             alert('注销失败！');
+		        } 
+       });
+}
+/*]]>*/  
+</script>
+
+<!-- message -->
+<script>
+
+$(document).ready(function(){
+      $("#closemes").click(function(){
+           $("#div_mes").slideUp(3000);
+      });
+});
+
+</script>
+
+<!-- 头部 -->
+<div id="div_head">
+	<div class="d-flex" style="margin-top:0px;">
+	
+	    <th:block th:if="${session.user==null}">
+	      <p class="p-3 flex-fill" style="width:50%;color:black;padding-left:50px;">
+	            欢迎来到本站！&nbsp;<a th:href='@{/reg.html}' style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">注册</a>
+	            &nbsp;&nbsp;<a href='javascript:void(0);' onclick="login()" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">登陆</a>
+	            &nbsp;&nbsp;<a th:href="@{/getQQCode}" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">
+	            <img style="height:30px;vertical-align:middle;padding-left:2px;" th:src="@{/static/images/common/qqz.png}" />&nbsp;QQ登录</a>
+	            &nbsp;&nbsp;<a th:href="@{/banwu.html}" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">版务</a>
+	      </p>
+	    </th:block>
+	    
+	    <th:block th:if="${session.user!=null}">
+             <th:block th:if="${session.user=='admin' && session.pwd=='wxl13088829771'}">
+                   <p class="p-3 flex-fill" style="color:black;width:50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span th:text="${session.user}"></span>
+                                                         已登陆&nbsp;&nbsp;
+                             <a style="text-decoration:none;color:black;" th:href="@{/admin}" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">后台管理</a>&nbsp;&nbsp;
+                        <a style="text-decoration:none;color:black;" class="open-popup" href="javascript:void(0)" onclick="logout_ajax()" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">注销</a>
+                       
+                        &nbsp;&nbsp;<a th:href="@{/banwu.html}" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">版务</a>
+                    </p>
+             </th:block>
+             <th:block th:if="${session.user!='admin' && session.pwd!='wxl13088829771'}">
+                    <p class="float-left"style="color:black;width:50%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <span style="color:black;" th:text="${session.user}"></span>
+                                                                     已登陆&nbsp;&nbsp;
+                              
+                              <a style="text-decoration:none;color:black;" th:href="@{/myspace.html/page/1}" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">
+                                  <img th:src="${session.userimg}" width="30px" style="border-radius:50%;"><span style="padding-left:3px;">个人空间</span>
+                              </a>&nbsp;&nbsp;
+                              <a style="text-decoration:none;color:black;" class="open-popup" href="javascript:void(0)" onclick="logout_ajax()" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">注销</a>
+                              &nbsp;&nbsp;
+                              <a th:href="@{/banwu.html}" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">版务</a>
+                    </p>
+             </th:block>
+         </th:block> 
+	    
+
+    <p class="p-3 flex-fill" style="width:30%;text-align:right;padding-right:30px;color:black;font-size:18px;">             
+                                   你是本站第<span th:text="${mfgsloginips}"></span>位访客&nbsp;&nbsp;&nbsp;
+                                   浏览量<span th:text="${mfgsindexview}"></span>
+    </p>
+	<p class="p-3 flex-fill" style="width:20%;padding-right:50px;text-align:right;"><font id="nowtime" style="color:black;"></font></p>
+	
+	</div>
+</div>
+
+<script>
+    $('.pic').animate({width:'10%'},100);
+</script>
+
+<!-- main -->
+<div id="content">
+   <!-- logo -->
+  <div style="width:60%;height:auto;margin:0px auto;text-align:left;">
+       <img id="logo" th:src="${'/static/images/common/newlogo2.png'}" alt="" />
+  </div><!-- logo -->
+  <!-- 介绍 -->
+  <div id="div_about">
+         欢迎来到免费公社！这是一个致力于推广闲置物品免费分享的平台，我们倡导一场完全非营利性的运动。这一切源于绿色环保、循环利用的理念。会员资格是免费的，但要注册，为方便你随时发布和领取物品请通过同名小程序(见下方二维码)操作。祝你玩得高兴！
+
+  </div><!-- 介绍 -->
+  <!-- <div style="width: 100%;height:1px;margin: 0;padding: 0;"></div> -->
+  <!-- 搜索 -->
+  <div style="width: 100%;height: auto;text-align: center;margin:20px auto;">
+   <form name="form1" method="post" th:action="@{/frontsearchpro/page/1}" target="_blank">
+        <input style="border: none;diplay:inline-block;width:260px;height:50px;border-radius: 5px;padding-left:15px;" onfocus="this.placeholder=''" onblur="this.placeholder='搜你想搜的东西'" placeholder="搜你想搜的东西" type="text" name="keyword" id="keywords" />
+     <input id="submit" style="border:none;diplay:inline-block;width:100px;height:50px;border-radius: 5px;" type="submit" value="搜一搜" onmouseover="this.style.background='green';this.style.color='white';" onmouseout="this.style.background='#F5F5F5';this.style.color='black';" />
+  </form>
+    <!-- 
+ 
+   <a class="btn btn-lg btn-info" th:href="@{/frontprolist/page/1}">搜一搜</a>
+    -->
+  </div><!-- 搜索 -->
+  <!-- 类别 -->
+  <div style="width:100%;height:auto;margin-bottom:40px;">
+	    <ul id="searchclass" class="nav justify-content-center">
+		        <li class="nav-item"><a class="nav-link" th:href="@{/jj.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">家具</a></li>
+		        <li class="nav-item"><a class="nav-link" th:href="@{/jd.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">家电</a></li>
+		        <li class="nav-item"><a class="nav-link" th:href="@{/yw.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">衣物</a></li>
+		        <li class="nav-item"><a class="nav-link" th:href="@{/sp.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">私品</a></li>
+		        <li class="nav-item"><a class="nav-link" th:href="@{/sj.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">书刊</a></li>
+		        <li class="nav-item"><a class="nav-link" th:href="@{/cw.html/page/1}" style="color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">宠物</a></li>
+	    </ul>
+  </div> <!-- 类别 -->
+</div><!-- main -->
+<!-- loading 20% -->
+<script>
+    $('.pic').animate({width:'50%'},100);
+</script>
+
+<!-- 分割 -->
+<div id="cutarea">
+		<p class="arrow1"></p>
+</div>
+
+<!-- loading 20% -->
+<script>
+    $(".arrow1").click(function(){
+        $('#div_bot').slideToggle("slow");     
+		    $("#cutarea>p").toggleClass("arrow2");
+      
+    });
+    
+</script>
+
+<!-- 尾部 -->
+<div id="div_bot" style="display:none;width:100%;height:auto;margin-top:50px;">
+
+<div class="d-flex" id="bot_box">
+     <div class="p-3 flex-fill" style="width:30%;">   
+          <h3 style="color:black;font-weight:300;font-size:16px;"> 
+          <a href="/about.html" style="text-decoration:none;padding-left:20px;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">关于本站</a> <font style="color:black;">｜</font>
+              <a id="ly" href="javascript:void(0)" onclick="alert('未开通！')" style="text-decoration:none;color:black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">留&nbsp;言</a>
+          </h3>
+          <ul>
+              <li><h4 style="padding-left:20px;color:black;">友情链接:</h4></li>
+              <li class="ulj"><a target="_blank" style="text-decoration:none;padding-left:50px;color:black;" th:href="@{https://www.freecycle.org/}" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';">Freecycle(全球捐赠网)</a></li>
+          </ul>
+    </div>
+
+    <div class="p-3 flex-fill" style="width:40%;">
+          <div id="qr" style="width: 100%;height: auto;">
+               <p style="width: 220px;height: 100px;margin:5px auto;">
+                   <img style="width: 100px;height: 100px;padding-right: 10px;" th:src="@{/static/images/common/22.jpg}" alt="" />
+                   <img style="width: 100px;height: 100px;" th:src="@{/static/images/common/11.jpg}" alt="" />
+               </p>            
+          </div>
+         <h3 class="text-center" style="font-size: 16px;color:white;">
+                        拿起手机 随时分享
+         </h3>
+
+    </div>
+
+    <div class="p-3 flex-fill" style="width:30%;">
+          
+    </div>
+
+</div>
+
+<h4 class="text-center" style="margin-top:30px;">个人闲置物品分享平台</h4>
+<p class="text-center" style="margin-top:16px;"><a target="_blank" th:href="@{http://wpa.qq.com/msgrd?v=3&uin=2556136041&site=qq&menu=yes}"><img border="0" src="http://wpa.qq.com/pa?p=2:379215781:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
+<p class="text-center" style="font-size:18px;margin-bottom:100px;">Copyright © <span id="bq"></span> www.51mfgs.com  版权所有 粤ICP备18045267号-1</p>
+<script>
+  var d = new Date();
+  var x = document.getElementById("bq");
+  x.innerHTML=d.getFullYear();
+</script>
+</div>
+
+<!-- loading 100% -->
+<script>
+    $('.pic').animate({width:'100%'},100,function(){
+      $('.loading').fadeOut();
+    });
+</script>
+
+<!-- logo jquery 动画效果 -->
+<script>
+    var LOGO = $("#logo");
+    function runIt() {
+	      LOGO.fadeIn("slow");
+	      // LOGO.show("slow");
+	      var w=$("#div_about").width();
+	      var l=w-200;
+	      LOGO.animate({left:'+='+l},4000);
+	      //LOGO.animate({left:'+='+l,transform:'rotate('+90+'deg)'},4000);
+	      // $(LOGO).css({"transform":"rotate("+xzDeg+"deg)"});
+	      LOGO.animate({top:'+=30'},500);
+	      LOGO.fadeToggle(1000);
+	      LOGO.fadeToggle("slow");
+	      LOGO.animate({left:'-='+l},4000);
+	      LOGO.animate({top:'-=30'},500,runIt);
+	      // LOGO.hide("slow");
+	      // LOGO.show(1200);
+	      LOGO.fadeOut("normal");
+    }
+    runIt();
+
+    //设置向baiduspider自动推送
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+
+</script>
+
+</body>
+</htm>

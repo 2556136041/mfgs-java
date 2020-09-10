@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>预定</title>
+<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css}" />
+<script th:src="@{https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+ 
+<script type="text/javascript" th:src="@{/static/js/checkform.js}"> </script> 
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.2.1.min.js}"></script>
+<link rel="stylesheet" th:href="@{/static/css/nav.css}"/>
+
+<style type="text/css">
+body{background:rgb(204,255,204);}
+table{
+      margin:10px auto;
+     }
+table tr th{
+     text-align:right;
+     padding:5px 10px 0px 0px;
+}
+table tr td{
+     padding:5px 0px;
+}
+textarea{
+     font-size: 16px;  
+     font-family: "微软雅黑";   
+     border-radius: 5px; 
+     }
+
+
+button#tjbut{
+     height:45px;
+     width:100%;     
+     font:20px "Microsoft Yahei";
+     line-height: 45px;
+     background: rgb(204,204,102);
+     border-radius: 15px;
+
+}
+button#tjbut:hover{
+     color:white;
+     background: red;
+}
+.ts{
+  padding-left:10px;
+}
+</style>
+<script>
+/*<![CDATA[*/
+function order_ajax(){
+	var orderlj=$('#orderlj').val();
+    var orderly=$('#orderly').val();
+    var ordername=$('#ordername').val();
+    var orderaddr=$('#orderaddr').val();
+    var getstate=$('#getstate').val();
+    var proid=$('#proid').val();
+    var reg=/^(13|14|15|17|18)[0-9]{9}$/; 
+    //alert(ordername);
+    if(orderlj==""){
+          alert('联系方式不能为空');
+          $('#orderlj').val('');
+          $('#orderlj').focus();
+          return false;
+    }else{
+    	if(!reg.test(orderlj)){
+            alert("手机号码不合法"); 
+            $('#orderlj').val('');
+            $('#orderlj').focus();
+            return false; 
+        }else{
+        	if(ordername==""){
+                alert("联系人不能为空");
+                $('#ordername').val('');
+                $('#ordername').focus();
+                return false; 
+            }else{
+            	if(orderaddr==""){
+                    alert("地址不能为空");
+                    $('#orderaddr').val('');
+                    $('#orderaddr').focus();
+                    return false; 
+                }else{
+                	if(orderly==""){
+                        alert('留言不能为空');
+                        $('#orderly').val('');
+                        $('#orderly').focus();
+                        return false;
+                     }else{
+                    	 $.post("/createorder.html",
+                    		        {"orderlj":orderlj,"ordername":ordername,"orderaddr":orderaddr,"orderly":orderly,"getstate":getstate,"proid":proid},
+                    		        function(data){
+		                    		        if(data==1){
+		                    		            alert('成功预订,请耐心等待对方回应！');
+		                    		            window.location="/index.html";
+		                    		        }else{
+		                    		            alert('失败！');
+		                    		            window.history.back();
+		                    		        }
+                        });
+                    	 
+                    }
+                }
+            }
+        	
+        }
+    	
+    } 
+   
+}
+      
+/*]]>*/   
+
+</script>
+</head>
+
+<body>
+
+<div th:include="/common/top::header"></div>
+<div style="width: 100%;height: 10px;"></div>
+  <table width="800" border="0" cellspacing="15" cellpadding="10"  class="form-group">
+    <tr>
+      <th width="200" scope="row">物品名称:</th>
+      <td colspan="2" width="300" th:text="${proname}"></td>
+    </tr>
+    <tr>
+      <th width="200" scope="row"><label for="ordername">联系人:</label></th>
+      <td width="300">
+          <input class="form-control" type="text" id="ordername" />
+      </td>
+      <td>
+          <text class="ts">（可以是昵称）</text>
+      </td>
+    </tr>
+    <tr>
+      <th width="200" scope="row"><label for="orderlj">联系方式:</label></th>
+      <td width="300">
+          <input class="form-control" id="orderlj" type="text" />
+      </td>
+      <td>
+         <text class="ts">（手机号）</text>
+      </td>
+    </tr>
+    <tr>
+      <th width="200" scope="row"><label for="orderaddr">收货地址:</label></th>
+      <td width="300">
+           <input class="form-control" id="orderaddr" type="text" />
+      </td>
+      <td>
+         <text class="ts">（详细）</text>
+      </td>
+    </tr>
+    <tr>
+      <th valign="top" scope="row"><label for="orderly">留言:</label></th>
+      <td>
+         <textarea class="form-control" style="width: 400px;" id="orderly" rows="10"></textarea>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-top: 20px;text-align:center;">
+      <input id="getstate" type="hidden" value="0" />
+      <input id="proid" type="hidden" th:value="${proid}" />
+      
+      </th>
+      <td style="padding-top:20px;">
+      <button style="width:100%;" class="btn btn-lg btn-success" onclick='order_ajax()' />提交</button>
+      </td>
+      <td>
+      
+      </td>
+    </tr>
+  </table>
+
+<div th:include="/common/bottom::footer"></div>
+</body>
+</html>
+
